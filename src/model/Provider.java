@@ -53,7 +53,10 @@ public class Provider {
         return company_name;
     }
 
-    public void setCompany_name(String company_name) {
+    public void setCompany_name(String company_name) throws Exception {
+        if(company_name == null || "".equals(company_name)){
+            throw new Exception("Invalid arguments");
+        }
         this.company_name = company_name;
     }
 
@@ -61,7 +64,10 @@ public class Provider {
         return trade_name;
     }
 
-    public void setTrade_name(String trade_name) {
+    public void setTrade_name(String trade_name) throws Exception {
+        if(trade_name == null || "".equals(trade_name)){
+            throw new Exception("Invalid arguments");
+        }
         this.trade_name = trade_name;
     }
 
@@ -69,7 +75,10 @@ public class Provider {
         return cnpj;
     }
 
-    public void setCnpj(String cnpj) {
+    public void setCnpj(String cnpj) throws Exception {
+        if(cnpj == null || "".equals(cnpj)){
+            throw new Exception("Invalid arguments");
+        }
         this.cnpj = cnpj;
     }
 
