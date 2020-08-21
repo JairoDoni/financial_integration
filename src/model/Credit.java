@@ -67,7 +67,10 @@ public class Credit {
         return sale_date;
     }
 
-    public void setSale_date(Calendar sale_date) {
+    public void setSale_date(Calendar sale_date) throws Exception {
+        if(sale_date == null){
+            throw new Exception("Invalid arguments");
+        }
         this.sale_date = sale_date;
     }
 
@@ -75,7 +78,10 @@ public class Credit {
         return due_date;
     }
 
-    public void setDue_date(Calendar due_date) {
+    public void setDue_date(Calendar due_date) throws Exception {
+        if(due_date == null){
+            throw new Exception("Invalid arguments");
+        }
         this.due_date = due_date;
     }
 
@@ -115,7 +121,10 @@ public class Credit {
         return description;
     }
 
-    public void setDescription(String description) {
+    public void setDescription(String description) throws Exception {
+        if(description == null || "".equals(description)){
+            throw new Exception("Invalid arguments");
+        }
         this.description = description;
     }
 
