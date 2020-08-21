@@ -65,10 +65,14 @@ public class Client {
     }
 
     public String getName() {
+        
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(String name) throws Exception {
+        if(name == null || "".equals(name)){
+            throw new Exception("Invalid arguments");
+        }
         this.name = name;
     }
 
@@ -76,7 +80,10 @@ public class Client {
         return birth_date;
     }
 
-    public void setBirth_date(Calendar birth_date) {
+    public void setBirth_date(Calendar birth_date) throws Exception {
+        if(birth_date == null){
+            throw new Exception("Invalid arguments");
+        }
         this.birth_date = birth_date;
     }
 
@@ -84,7 +91,10 @@ public class Client {
         return cpf;
     }
 
-    public void setCpf(String cpf) {
+    public void setCpf(String cpf) throws Exception {
+        if(cpf == null || "".equals(cpf)){
+            throw new Exception("Invalid arguments");
+        }
         this.cpf = cpf;
     }
 
@@ -92,7 +102,10 @@ public class Client {
         return rg;
     }
 
-    public void setRg(String rg) {
+    public void setRg(String rg) throws Exception {
+        if(rg == null || "".equals(rg)){
+            throw new Exception("Invalid arguments");
+        }
         this.rg = rg;
     }
 
@@ -100,7 +113,10 @@ public class Client {
         return phone;
     }
 
-    public void setPhone(String phone) {
+    public void setPhone(String phone) throws Exception {
+        if(phone == null || "".equals(phone)){
+            throw new Exception("Invalid arguments");
+        }
         this.phone = phone;
     }
 
