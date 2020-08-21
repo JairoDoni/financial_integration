@@ -21,7 +21,7 @@ public class Provider {
     
     public Provider(int id, String company_name, String trade_name, String cnpj) throws Exception{
         if(company_name == null || "".equals(company_name) || trade_name == null || "".equals(trade_name) || cnpj == null || "".equals(cnpj) ){
-            throw new Exception("Invalid argument");
+            throw new Exception("Invalid arguments");
         }
             this.id = id;
             this.company_name = company_name;
@@ -31,7 +31,7 @@ public class Provider {
     
     public Provider(int id, String company_name, String trade_name, String cnpj, String phone, String email) throws Exception{
         if(company_name == null || "".equals(company_name) || trade_name == null || "".equals(trade_name) || cnpj == null || "".equals(cnpj) ){
-            throw new Exception("Invalid argument");
+            throw new Exception("Invalid arguments");
         }
         this.id = id;
         this.company_name = company_name;
