@@ -60,6 +60,7 @@ public class Debits {
     }
 
     public void setId(int id) {
+        
         this.id = id;
     }
 
@@ -67,7 +68,10 @@ public class Debits {
         return buy_date;
     }
 
-    public void setBuy_date(Calendar buy_date) {
+    public void setBuy_date(Calendar buy_date) throws Exception {
+        if(buy_date == null){
+            throw new Exception("Invalid arguments");
+        }
         this.buy_date = buy_date;
     }
 
@@ -75,7 +79,10 @@ public class Debits {
         return due_date;
     }
 
-    public void setDue_date(Calendar due_date) {
+    public void setDue_date(Calendar due_date) throws Exception {
+         if(due_date == null){
+            throw new Exception("Invalid arguments");
+        }
         this.due_date = due_date;
     }
 
@@ -115,7 +122,10 @@ public class Debits {
         return description;
     }
 
-    public void setDescription(String description) {
+    public void setDescription(String description) throws Exception {
+        if(description == null || "".equals(description)){
+            throw new Exception("Invalid arguments");
+        }
         this.description = description;
     }
 
