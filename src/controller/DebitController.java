@@ -21,100 +21,97 @@ public class DebitController {
     
     private DebitsDAO db;
     private Debits debits = null;
-    private Provider provider = null;
-    private ArrayList<Debits> listaCompras;
-    private ArrayList<Provider> listaFornecedores;
+    private ArrayList<Debits> debitList;
     private int indice = 0;
 
     public DebitController() throws DBException {
         this.db = new DebitsDAO();
-        this.listaCompras = db.buscaTodos();
+        this.debitList = db.buscaPorTodos();
     }
 
-    public void salvar(String dat_compra, String nota_fiscal, Double valor_total, int indiceFornecedor) throws BancoDeDadosException {
-
+    public void salvar(String dat_compra, String dat_vencimento,String dat_pagamento,Double valor, Double valor_pago, Boolean pago, String descricao, String observacao, Integer provider_id) throws DBException, Exception {
+       
         Debits d;
 
         if (this.debits != null) {
 
             d = this.debits;
+            
+            Calendar calend = Calendar.getInstance();
+            Date date = new Date(dat_compra);
+            calend.setTime(date);
+            d.setBuy_date(calend);
+            date = new Date(dat_vencimento);
+            calend.setTime(date);
+            d.setDue_date(calend);
+            date = new Date(dat_pagamento);
+            calend.setTime(date);
+            d.setPayment_date(calend);
+            
+            
+            d.setValue(valor);
+            d.setValue_paid(valor_pago);
+            d.setPaid_out(pago);
+            d.setDescription(descricao);
+            d.setNote(observacao);
+            d.setProvider_id(provider_id);
+         
 
-            Calendar ultimaCompra = Calendar.getInstance();
-            //Date d = new Date(dat_compra);
-            ultimaCompra.setTime(d);
+            
 
-            d.setDat_compra(ultimaCompra);
+            this.debitList.set(indice, d);
 
-            d.setNota_fiscal(nota_fiscal);
-            d.setValor_total(valor_total);
-
-            buscarTodoOsFornecedores();
-            Fornecedor f = this.listaFornecedores.get(indiceFornecedor);
-            c.setFornecedor(f);
-
-            this.listaCompras.set(indice, c);
-
-            this.db.atualizar(c);
+            this.db.atualizar(d);
 
             this.indice = 0;
-            this.compra = null;
+            this.debits = null;
 
         }
     }
 
-    public void cadastrar(String payment_date, String nota_fiscal, Double valor_total, int indiceFornecedor) throws BancoDeDadosException {
+    public void cadastrar(String dat_compra, String dat_vencimento,String dat_pagamento,Double valor, Double valor_pago, Boolean pago, String descricao, String observacao, Integer provider_id) throws DBException, Exception {
 
         Debits d = new Debits();
+            
+            Calendar calend = Calendar.getInstance();
+            Date date = new Date(dat_compra);
+            calend.setTime(date);
+            d.setBuy_date(calend);
+            date = new Date(dat_vencimento);
+            calend.setTime(date);
+            d.setDue_date(calend);
+            date = new Date(dat_pagamento);
+            calend.setTime(date);
+            d.setPayment_date(calend);
+            
+            d.setValue(valor);
+            d.setValue_paid(valor_pago);
+            d.setPaid_out(pago);
+            d.setDescription(descricao);
+            d.setNote(observacao);
+            d.setProvider_id(provider_id);
 
-        d.setPayment_date(nota_fiscal);
-        d.setValue(valor_total);
+        this.db.inserir(d);
 
-        Provider f = this.listaFornecedores.get(indiceFornecedor);
-        d.setProvider(f);
-
-        Calendar dataCompra = Calendar.getInstance();
-        Date d = new Date(data_compra);
-        dataCompra.setTime(d);
-
-        c.setDat_compra(dataCompra);
-
-        this.db.inserir(c);
-
-        this.listaCompras.add(c);
-
-    }
-
-    public int excluir(int indice) throws DBException {
-
-        int reg = this.db.excluir(indice);
-
-        return reg;
+        this.debitList.add(d);
 
     }
 
-    public Compra getCompras() {
-        return this.compra;
-    }
+    public void excluir(int indice) throws DBException {
 
-    public void buscarTodoOsFornecedores() throws DBException {
-        fornecedorDAO fdao = new fornecedorDAO();
-        this.listaFornecedores = fdao.buscaTodos();
-        fdao = null;
+        this.db.excluir(indice);
     }
+    
+    public void buscarTodos() throws DBException {
 
-    public ArrayList<Pro> getListaFornecedoresCadastrados() {
-        return this.listaFornecedores;
+        DebitsDAO d = new DebitsDAO();
+        
+        this.debitList = d.buscaPorTodos();
+        
+        d = null;
+        
     }
-
-    public ArrayList<Compra> getListaCompras() {
-        return this.listaCompras;
-    }
-
-    public void setCompraSelecionado(int indice) throws BancoDeDadosException {
-        this.indice = indice;
-        this.compra = this.listaCompras.get(indice);
-    }
-
+    
 }
 
 

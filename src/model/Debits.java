@@ -24,6 +24,19 @@ public class Debits {
     private String note;
     private int provider_id;
 
+    public Debits(){
+        this.id = 0;
+        this.buy_date = Calendar.getInstance();
+        this.due_date = Calendar.getInstance();
+        this.payment_date = Calendar.getInstance();
+        this.value = 0;
+        this.value_paid = 0;
+        this.paid_out = false;
+        this.description = "";
+        this.note = "";
+        this.provider_id = 0;
+    }
+    
     public Debits(int id, Calendar buy_date, Calendar due_date, double value, boolean paid_out, String description, int provider_id) throws Exception{
         if(buy_date == null || due_date == null || description == null || "".equals(description)){
             throw new Exception("Invalid arguments");
