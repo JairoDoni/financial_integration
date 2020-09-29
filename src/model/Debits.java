@@ -22,10 +22,9 @@ public class Debits {
     private boolean paid_out;
     private String description;
     private String note;
-    private int provider_id;
+    private int fornecedores_id;
 
     public Debits(){
-        
         this.id = 0;
         this.buy_date = Calendar.getInstance();
         this.due_date = Calendar.getInstance();
@@ -35,11 +34,10 @@ public class Debits {
         this.paid_out = false;
         this.description = "";
         this.note = "";
-        this.provider_id = 0;
-        
+        this.fornecedores_id = 0;
     }
     
-    public Debits(int id, Calendar buy_date, Calendar due_date, double value, boolean paid_out, String description, int provider_id) throws Exception{
+    public Debits(int id, Calendar buy_date, Calendar due_date, double value, boolean paid_out, String description, int fornecedores_id) throws Exception{
         if(buy_date == null || due_date == null || description == null || "".equals(description)){
             throw new Exception("Invalid arguments");
         }
@@ -49,12 +47,12 @@ public class Debits {
         this.value = value;
         this.paid_out = paid_out;
         this.description = description;
-        this.provider_id = provider_id;
+        this.fornecedores_id = fornecedores_id;
     }
 
     
     
-    public Debits(int id, Calendar buy_date, Calendar due_date, Calendar payment_date, double value, double value_paid, boolean paid_out, String description, String note, int provider_id) throws Exception {
+    public Debits(int id, Calendar buy_date, Calendar due_date, Calendar payment_date, double value, double value_paid, boolean paid_out, String description, String note, int fornecedores_id) throws Exception {
         if(buy_date == null || due_date == null || description == null || "".equals(description)){
             throw new Exception("Invalid arguments");
         }
@@ -67,7 +65,7 @@ public class Debits {
         this.paid_out = paid_out;
         this.description = description;
         this.note = note;
-        this.provider_id = provider_id;
+        this.fornecedores_id = fornecedores_id;
     }
 
     public int getId() {
@@ -152,12 +150,12 @@ public class Debits {
         this.note = note;
     }
 
-    public int getProvider_id() {
-        return provider_id;
+    public int getFornecedores_id() {
+        return fornecedores_id;
     }
 
-    public void setProvider_id(int provider_id) {
-        this.provider_id = provider_id;
+    public void setFornecedores_id(int fornecedores_id) {
+        this.fornecedores_id = fornecedores_id;
     }
     
     

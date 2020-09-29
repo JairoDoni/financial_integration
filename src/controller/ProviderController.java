@@ -19,20 +19,19 @@ public class ProviderController {
 
     private Provider provider = null;
     private ProviderDAO db;
-    private ArrayList<Provider> listaFornecedores;
+    private ArrayList<Provider> providerList;
 
     public ProviderController() throws DBException {
         this.db = new ProviderDAO();
 
-        this.listaFornecedores = db.buscaTodos();
+        this.providerList = db.buscaPorTodos();
     }
 
-    public ProviderController getProviders() {
+    public Provider getProviders() {
         return this.provider;
     }
 
-    public ArrayList<ProviderController> getListaTodosFornecedores() {
-        return this.listaFornecedores;
+    public ArrayList<Provider> getListaTodosFornecedores() {
+        return this.providerList;
     }
-
 }

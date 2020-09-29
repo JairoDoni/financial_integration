@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import dao.DBException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -31,6 +32,41 @@ public class ProviderDAO implements IDAO {
          
     }
 
+    @Override
+    public Provider buscaPorId(int id) {
+        Connection con = Conection.getConexao();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        Provider p = null;
+
+        try {
+
+            ps = con.prepareStatement("SELECT * FROM fornecedores WHERE id = ?");
+            ps.setInt(1, id);
+
+            rs = ps.executeQuery();
+
+            rs.first();
+
+            p.setCompany_name(rs.getString("razao_social"));
+            p.setTrade_name(rs.getString("nome_fantasia"));
+            p.setCnpj(rs.getString("cnpj"));
+            p.setPhone(rs.getString("telefone"));
+            p.setEmail(rs.getString("email"));
+
+
+        } catch (Exception ex) {
+            Logger.getLogger(ClientDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                ps.close();
+                rs.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(ClientDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return p;
+    }
     
     @Override
     public void excluir(int id) {

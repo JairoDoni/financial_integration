@@ -5,10 +5,33 @@
  */
 package controller;
 
+import dao.DBException;
+import dao.ClientDAO;
+import model.Client;
+import java.util.ArrayList;
+
+
 /**
  *
  * @author jairo
  */
 public class ClientController {
     
+    private Client client = null;
+    private ClientDAO db;
+    private ArrayList<Client> clientList;
+
+    public ClientController() throws DBException {
+        this.db = new ClientDAO();
+        this.clientList = db.buscaPorTodos();
+    }
+
+    public Client getProviders() {
+        return this.client;
+    }
+
+    public ArrayList<Client> getListaTodosFornecedores() {
+        return this.clientList;
+    }
 }
+
