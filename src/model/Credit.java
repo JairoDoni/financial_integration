@@ -23,6 +23,20 @@ public class Credit {
     private String description;
     private String note;
     private int client_id;
+    
+    
+    public Credit(){
+        this.id = 0;
+        this.sale_date = Calendar.getInstance();
+        this.due_date = Calendar.getInstance();
+        this.payment_date = Calendar.getInstance();
+        this.value = 0;
+        this.value_paid = 0;
+        this.paid_out = false;
+        this.description = "";
+        this.note = "";
+        this.client_id = 0;
+    }
 
     public Credit(int id, Calendar sale_date, Calendar due_date, double value, boolean paid_out, String description, int client_id) throws Exception {
         if(sale_date == null || due_date == null || description == null || "".equals(description)){

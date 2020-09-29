@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Credit;
@@ -103,9 +104,13 @@ public class CreditDAO implements IDAO {
 
             rs.first();
 
-            //c.setDate(new java.sql.Date(c.getSale_date().getTime().getTime()));
-            //c.setDate(new java.sql.Date(c.getDue_date().getTime().getTime()));
-            //c.setDate(new java.sql.Date(c.getPayment_date().getTime().getTime()));
+            Calendar calend = Calendar.getInstance();
+            calend.setTimeInMillis(rs.getDate("dat_venda").getTime());
+            c.setSale_date(calend);
+            calend.setTimeInMillis(rs.getDate("dat_vencimento").getTime());
+            c.setDue_date(calend);
+            calend.setTimeInMillis(rs.getDate("dat_pagamento").getTime());
+            c.setPayment_date(calend);
             c.setValue(rs.getDouble("valor"));
             c.setValue_paid(rs.getDouble("valor_pago"));
             c.setPaid_out(rs.getBoolean("pago"));
@@ -144,9 +149,13 @@ public class CreditDAO implements IDAO {
 
             while( rs.next()) {
 
-            //c.setDate(new java.sql.Date(c.getSale_date().getTime().getTime()));
-            //c.setDate(new java.sql.Date(c.getDue_date().getTime().getTime()));
-            //c.setDate(new java.sql.Date(c.getPayment_date().getTime().getTime()));
+            Calendar calend = Calendar.getInstance();
+            calend.setTimeInMillis(rs.getDate("dat_venda").getTime());
+            c.setSale_date(calend);
+            calend.setTimeInMillis(rs.getDate("dat_vencimento").getTime());
+            c.setDue_date(calend);
+            calend.setTimeInMillis(rs.getDate("dat_pagamento").getTime());
+            c.setPayment_date(calend);
             c.setValue(rs.getDouble("valor"));
             c.setValue_paid(rs.getDouble("valor_pago"));
             c.setPaid_out(rs.getBoolean("pago"));
