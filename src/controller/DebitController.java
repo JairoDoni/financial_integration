@@ -29,7 +29,7 @@ public class DebitController {
         this.debitList = db.buscaPorTodos();
     }
 
-    public void salvar(String dat_compra, String dat_vencimento,String dat_pagamento,Double valor, Double valor_pago, Boolean pago, String descricao, String observacao, Integer provider_id) throws DBException, Exception {
+    public void salvar(String dat_compra, String dat_vencimento,String dat_pagamento,Double valor, Double valor_pago, Boolean pago, String descricao, String observacao, int fornecedores_id) throws DBException, Exception {
        
         Debits d;
 
@@ -54,7 +54,7 @@ public class DebitController {
             d.setPaid_out(pago);
             d.setDescription(descricao);
             d.setNote(observacao);
-            d.setProvider_id(provider_id);
+            d.setFornecedores_id(fornecedores_id);
          
 
             
@@ -69,7 +69,7 @@ public class DebitController {
         }
     }
 
-    public void cadastrar(String dat_compra, String dat_vencimento,String dat_pagamento,Double valor, Double valor_pago, Boolean pago, String descricao, String observacao, Integer provider_id) throws DBException, Exception {
+    public void cadastrar(String dat_compra, String dat_vencimento,String dat_pagamento,Double valor, Double valor_pago, Boolean pago, String descricao, String observacao, int fornecedores_id) throws DBException, Exception {
 
         Debits d = new Debits();
             
@@ -89,7 +89,7 @@ public class DebitController {
             d.setPaid_out(pago);
             d.setDescription(descricao);
             d.setNote(observacao);
-            d.setProvider_id(provider_id);
+            d.setFornecedores_id(fornecedores_id);
 
         this.db.inserir(d);
 
@@ -112,7 +112,10 @@ public class DebitController {
         
     }
     
-}
+    public ArrayList<Debits> getDebitList(){
+        return this.debitList;
+    }
+ }
 
 
 
