@@ -67,11 +67,8 @@ public class ClientView extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         ClientTable = new javax.swing.JTable();
-        ButtonDelete = new javax.swing.JToggleButton();
         ButtonBack = new javax.swing.JToggleButton();
-        ButtonEdit = new javax.swing.JToggleButton();
         Title = new javax.swing.JLabel();
-        ButtonNew = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -95,14 +92,6 @@ public class ClientView extends javax.swing.JFrame {
         ClientTable.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(ClientTable);
 
-        ButtonDelete.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
-        ButtonDelete.setText("Excluir");
-        ButtonDelete.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ButtonDeleteActionPerformed(evt);
-            }
-        });
-
         ButtonBack.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
         ButtonBack.setText("Voltar");
         ButtonBack.addActionListener(new java.awt.event.ActionListener() {
@@ -111,24 +100,8 @@ public class ClientView extends javax.swing.JFrame {
             }
         });
 
-        ButtonEdit.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
-        ButtonEdit.setText("Editar");
-        ButtonEdit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ButtonEditActionPerformed(evt);
-            }
-        });
-
         Title.setFont(new java.awt.Font("Roboto", 1, 24)); // NOI18N
         Title.setText("Clientes:");
-
-        ButtonNew.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
-        ButtonNew.setText("Novo");
-        ButtonNew.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ButtonNewActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -141,13 +114,7 @@ public class ClientView extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(45, 45, 45)
                 .addComponent(ButtonBack, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(ButtonNew, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(ButtonEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(ButtonDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36))
+                .addGap(36, 1043, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(36, 36, 36)
                 .addComponent(Title)
@@ -160,22 +127,14 @@ public class ClientView extends javax.swing.JFrame {
                 .addComponent(Title)
                 .addGap(33, 33, 33)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(ButtonDelete)
-                    .addComponent(ButtonEdit)
-                    .addComponent(ButtonBack)
-                    .addComponent(ButtonNew))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                .addComponent(ButtonBack)
                 .addGap(19, 19, 19))
         );
 
-        setSize(new java.awt.Dimension(1201, 606));
+        setSize(new java.awt.Dimension(1201, 591));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void ButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonDeleteActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ButtonDeleteActionPerformed
 
     private void ButtonBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonBackActionPerformed
         FMenu menuScreen  = new FMenu();
@@ -183,14 +142,6 @@ public class ClientView extends javax.swing.JFrame {
         menuScreen.setVisible(true);
         dispose();
     }//GEN-LAST:event_ButtonBackActionPerformed
-
-    private void ButtonEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonEditActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ButtonEditActionPerformed
-
-    private void ButtonNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonNewActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ButtonNewActionPerformed
 
     /**
      * @param args the command line arguments
@@ -264,9 +215,6 @@ public class ClientView extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton ButtonBack;
-    private javax.swing.JToggleButton ButtonDelete;
-    private javax.swing.JToggleButton ButtonEdit;
-    private javax.swing.JToggleButton ButtonNew;
     private javax.swing.JTable ClientTable;
     private javax.swing.JLabel Title;
     private javax.swing.JScrollPane jScrollPane1;

@@ -10,7 +10,6 @@ import dao.DBException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
-import model.Utils;
 
 /**
  *
@@ -36,7 +35,7 @@ public class ProviderView extends javax.swing.JFrame {
     }
 
     
-        public void preencheTabela() {
+    public void preencheTabela() {
         for (int i = 0; i < this.controlador.getProviderList().size(); i++) {
 
             ((DefaultTableModel) this.ProviderTable.getModel()).addRow(
@@ -61,11 +60,8 @@ public class ProviderView extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         ProviderTable = new javax.swing.JTable();
-        ButtonDelete = new javax.swing.JToggleButton();
         ButtonBack = new javax.swing.JToggleButton();
-        ButtonEdit = new javax.swing.JToggleButton();
         Title = new javax.swing.JLabel();
-        ButtonNew = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Panel");
@@ -95,14 +91,6 @@ public class ProviderView extends javax.swing.JFrame {
             ProviderTable.getColumnModel().getColumn(4).setResizable(false);
         }
 
-        ButtonDelete.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
-        ButtonDelete.setText("Excluir");
-        ButtonDelete.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ButtonDeleteActionPerformed(evt);
-            }
-        });
-
         ButtonBack.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
         ButtonBack.setText("Voltar");
         ButtonBack.addActionListener(new java.awt.event.ActionListener() {
@@ -111,24 +99,8 @@ public class ProviderView extends javax.swing.JFrame {
             }
         });
 
-        ButtonEdit.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
-        ButtonEdit.setText("Editar");
-        ButtonEdit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ButtonEditActionPerformed(evt);
-            }
-        });
-
         Title.setFont(new java.awt.Font("Roboto", 1, 24)); // NOI18N
         Title.setText("Fornecedores:");
-
-        ButtonNew.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
-        ButtonNew.setText("Novo");
-        ButtonNew.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ButtonNewActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -141,13 +113,7 @@ public class ProviderView extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(45, 45, 45)
                 .addComponent(ButtonBack, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(ButtonNew, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
-                .addComponent(ButtonEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(ButtonDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36))
+                .addGap(36, 814, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(37, 37, 37)
                 .addComponent(Title)
@@ -161,11 +127,7 @@ public class ProviderView extends javax.swing.JFrame {
                 .addGap(49, 49, 49)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(ButtonDelete)
-                    .addComponent(ButtonEdit)
-                    .addComponent(ButtonBack)
-                    .addComponent(ButtonNew))
+                .addComponent(ButtonBack)
                 .addGap(19, 19, 19))
         );
 
@@ -173,24 +135,12 @@ public class ProviderView extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void ButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonDeleteActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ButtonDeleteActionPerformed
-
     private void ButtonBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonBackActionPerformed
         FMenu menuScreen  = new FMenu();
         
         menuScreen.setVisible(true);
         dispose();
     }//GEN-LAST:event_ButtonBackActionPerformed
-
-    private void ButtonEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonEditActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ButtonEditActionPerformed
-
-    private void ButtonNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonNewActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ButtonNewActionPerformed
 
     /**
      * @param args the command line arguments
@@ -233,9 +183,6 @@ public class ProviderView extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton ButtonBack;
-    private javax.swing.JToggleButton ButtonDelete;
-    private javax.swing.JToggleButton ButtonEdit;
-    private javax.swing.JToggleButton ButtonNew;
     private javax.swing.JTable ProviderTable;
     private javax.swing.JLabel Title;
     private javax.swing.JScrollPane jScrollPane1;

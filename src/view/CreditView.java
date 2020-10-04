@@ -181,11 +181,27 @@ public class CreditView extends javax.swing.JFrame {
     }//GEN-LAST:event_ButtonBackActionPerformed
 
     private void ButtonEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonEditActionPerformed
-        // TODO add your handling code here:
+        EditCreditView editScreen = null;
+        try {
+            editScreen = new EditCreditView();
+        } catch (DBException ex) {
+            Logger.getLogger(CreditView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        editScreen.setVisible(true);
+        dispose();
     }//GEN-LAST:event_ButtonEditActionPerformed
 
     private void ButtonNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonNewActionPerformed
-        // TODO add your handling code here:
+        RegisterCreditView registerScreen = null;
+        try {
+            registerScreen = new RegisterCreditView();
+        } catch (DBException ex) {
+            Logger.getLogger(CreditView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        registerScreen.setVisible(true);
+        dispose();
     }//GEN-LAST:event_ButtonNewActionPerformed
 
     /**

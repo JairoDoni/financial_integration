@@ -185,11 +185,27 @@ public class DebitsView extends javax.swing.JFrame {
     }//GEN-LAST:event_ButtonBackActionPerformed
 
     private void ButtonEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonEditActionPerformed
-        // TODO add your handling code here:
+        EditDebitsView editScreen = null;
+        try {
+            editScreen = new EditDebitsView();
+        } catch (DBException ex) {
+            Logger.getLogger(DebitsView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        editScreen.setVisible(true);
+        dispose();
     }//GEN-LAST:event_ButtonEditActionPerformed
 
     private void ButtonNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonNewActionPerformed
-        // TODO add your handling code here:
+        RegisterDebitsView registerScreen = null;
+        try {
+            registerScreen = new RegisterDebitsView();
+        } catch (DBException ex) {
+            Logger.getLogger(DebitsView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        registerScreen.setVisible(true);
+        dispose();
     }//GEN-LAST:event_ButtonNewActionPerformed
 
     /**
