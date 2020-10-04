@@ -100,4 +100,8 @@ public class CreditController {
         this.listaCred = cdao.buscaPorTodos();
         cdao = null;
     }
+      
+    public ArrayList<Credit> getCreditList(){
+        return this.listaCred;
+    }
 }

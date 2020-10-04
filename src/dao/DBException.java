@@ -11,7 +11,7 @@ package dao;
  */
 public class DBException extends Exception{
 
-    public DBException(String msg) {
+    public DBException(String msg){
         super(msg);
     }
 }

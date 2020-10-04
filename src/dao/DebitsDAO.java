@@ -10,8 +10,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Debits;
@@ -102,21 +104,24 @@ public class DebitsDAO implements IDAO{
             ps.setInt(1, id);
 
             rs = ps.executeQuery();
-
+            
             rs.first();
 
-            //c.setDate(new java.sql.Date(c.getSale_date().getTime().getTime()));
-            //c.setDate(new java.sql.Date(c.getDue_date().getTime().getTime()));
-            //c.setDate(new java.sql.Date(c.getPayment_date().getTime().getTime()));
-            //d.setValue(rs.getDouble("valor"));
-            //d.setValue_paid(rs.getDouble("valor_pago"));
-            //d.setPaid_out(rs.getBoolean("pago"));
-            //d.setDescription(rs.getString("descricao"));
-            //d.setNote(rs.getString("observacao"));
-            //d.setFornecedores_id(rs.getInt("fornecedores_id"));
+            Calendar n = Calendar.getInstance();
+            n.setTimeInMillis(rs.getDate("dat_compra").getTime());
+            d.setBuy_date(n);
+            n.setTimeInMillis(rs.getDate("dat_vencimento").getTime());
+            d.setDue_date(n);
+            n.setTimeInMillis(rs.getDate("dat_pagamento").getTime());
+            d.setPayment_date(n);
+            d.setValue(rs.getInt("valor"));
+            d.setValue_paid(rs.getInt("valor_pago"));
+            d.setPaid_out(rs.getBoolean("pago"));
+            d.setDescription(rs.getString("descricao"));
+            d.setNote(rs.getString("observacao"));
+            d.setFornecedores_id(rs.getInt("fornecedores_id"));
             
             Debits c = new Debits();
-            this.preencheObjeto(c, rs);                               
             
 
         } catch (Exception ex) {
@@ -137,32 +142,32 @@ public class DebitsDAO implements IDAO{
          Connection con = Conection.getConexao();
         Statement ps = null;
         ResultSet rs = null;
-        Debits d = null;
+        Debits d = new Debits();
         ArrayList<Debits> list = new ArrayList<Debits>();
 
         try {
 
             ps = con.createStatement();
-
+            
             rs = ps.executeQuery("SELECT * FROM debitos");
 
             while( rs.next()) {
+            
+                Calendar n = Calendar.getInstance();
+                n.setTimeInMillis(rs.getDate("dat_compra").getTime());
+                d.setBuy_date(n);
+                n.setTimeInMillis(rs.getDate("dat_vencimento").getTime());
+                d.setDue_date(n);
+                n.setTimeInMillis(rs.getDate("dat_pagamento").getTime());
+                d.setPayment_date(n);
+                d.setValue(rs.getInt("valor"));
+                d.setValue_paid(rs.getInt("valor_pago"));
+                d.setPaid_out(rs.getBoolean("pago"));
+                d.setDescription(rs.getString("descricao"));
+                d.setNote(rs.getString("observacao"));
+                d.setFornecedores_id(rs.getInt("fornecedores_id"));
 
-            //c.setDate(new java.sql.Date(c.getSale_date().getTime().getTime()));
-            //c.setDate(new java.sql.Date(c.getDue_date().getTime().getTime()));
-            //c.setDate(new java.sql.Date(c.getPayment_date().getTime().getTime()));
-            //d.setValue(rs.getDouble("valor"));
-            //d.setValue_paid(rs.getDouble("valor_pago"));
-            //d.setPaid_out(rs.getBoolean("pago"));
-            //d.setDescription(rs.getString("descricao"));
-            //d.setNote(rs.getString("observacao"));
-            //d.setFornecedores_id(rs.getInt("fornecedores_id"));
-            
-            Debits c = new Debits();
-            this.preencheObjeto(c, rs);                               
-            list.add(c); 
-            
-            //list.add(d);
+                list.add(d);                  
             }
         } catch (Exception ex) {
             Logger.getLogger(ClientDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -197,25 +202,6 @@ public class DebitsDAO implements IDAO{
                 Logger.getLogger(ClientDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-    }
-    
-    private void preencheObjeto(Debits c, ResultSet rs) throws SQLException, DBException, Exception {
-        
-        // dat_compra, nota_fiscal, valor_total, fornecedor
-        Calendar n = Calendar.getInstance();
-        n.setTimeInMillis(rs.getDate("dat_compra").getTime());
-        c.setBuy_date(n);
-        
-        n.setTimeInMillis(rs.getDate("dat_vencimento").getTime());
-        c.setDue_date(n);
-        
-        c.setDescription(rs.getString("descricao"));
-        c.setId(rs.getInt("id"));
-        c.setValue(rs.getDouble("valor"));
-
-        ProviderDAO fordao = new ProviderDAO();
-        Provider f = fordao.buscaPorId(rs.getInt("fornecedores_id"));            
-        c.setFornecedores_id(f);
     }
 }
     

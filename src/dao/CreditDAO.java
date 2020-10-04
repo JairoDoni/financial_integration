@@ -138,7 +138,7 @@ public class CreditDAO implements IDAO {
         Connection con = Conection.getConexao();
         Statement ps = null;
         ResultSet rs = null;
-        Credit c = null;
+        Credit c = new Credit();
         ArrayList<Credit> list = new ArrayList<Credit>();
 
         try {
@@ -149,21 +149,21 @@ public class CreditDAO implements IDAO {
 
             while( rs.next()) {
 
-            Calendar calend = Calendar.getInstance();
-            calend.setTimeInMillis(rs.getDate("dat_venda").getTime());
-            c.setSale_date(calend);
-            calend.setTimeInMillis(rs.getDate("dat_vencimento").getTime());
-            c.setDue_date(calend);
-            calend.setTimeInMillis(rs.getDate("dat_pagamento").getTime());
-            c.setPayment_date(calend);
-            c.setValue(rs.getDouble("valor"));
-            c.setValue_paid(rs.getDouble("valor_pago"));
-            c.setPaid_out(rs.getBoolean("pago"));
-            c.setDescription(rs.getString("descricao"));
-            c.setNote(rs.getString("observacao"));
-            c.setClient_id(rs.getInt("clientes_id"));
+                Calendar calend = Calendar.getInstance();
+                calend.setTimeInMillis(rs.getDate("dat_venda").getTime());
+                c.setSale_date(calend);
+                calend.setTimeInMillis(rs.getDate("dat_vencimento").getTime());
+                c.setDue_date(calend);
+                calend.setTimeInMillis(rs.getDate("dat_pagamento").getTime());
+                c.setPayment_date(calend);
+                c.setValue(rs.getDouble("valor"));
+                c.setValue_paid(rs.getDouble("valor_pago"));
+                c.setPaid_out(rs.getBoolean("pago"));
+                c.setDescription(rs.getString("descricao"));
+                c.setNote(rs.getString("observacao"));
+                c.setClient_id(rs.getInt("clientes_id"));
 
-            list.add(c);
+                list.add(c);
             }
         } catch (Exception ex) {
             Logger.getLogger(ClientDAO.class.getName()).log(Level.SEVERE, null, ex);

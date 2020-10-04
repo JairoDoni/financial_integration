@@ -135,12 +135,12 @@ public class ClientDAO implements IDAO {
     }
 
     @Override
-    public ArrayList<Client> buscaPorTodos() {
+    public ArrayList buscaPorTodos() {
 
         Connection con = Conection.getConexao();
         Statement ps = null;
         ResultSet rs = null;
-        Client c = null;
+        Client c =  new Client();
         ArrayList<Client> list = new ArrayList<Client>();
 
         try {

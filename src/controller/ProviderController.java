@@ -31,7 +31,7 @@ public class ProviderController {
         return this.provider;
     }
 
-    public ArrayList<Provider> getListaTodosFornecedores() {
+    public ArrayList<Provider> getProviderList() {
         return this.providerList;
     }
 }

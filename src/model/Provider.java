@@ -19,6 +19,15 @@ public class Provider {
     private String phone;
     private String email;
     
+    public Provider() {
+        this.id = 0;
+        this.company_name = "";
+        this.trade_name = "";
+        this.cnpj = "";
+        this.phone = "";
+        this.email = "";
+    }
+    
     public Provider(int id, String company_name, String trade_name, String cnpj) throws Exception{
         if(company_name == null || "".equals(company_name) || trade_name == null || "".equals(trade_name) || cnpj == null || "".equals(cnpj) ){
             throw new Exception("Invalid arguments");

@@ -5,6 +5,14 @@
  */
 package view;
 
+import controller.ClientController;
+import controller.DebitController;
+import dao.DBException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
+import model.Utils;
+
 /**
  *
  * @author jairo
@@ -14,8 +22,38 @@ public class ClientView extends javax.swing.JFrame {
     /**
      * Creates new form ProviderView
      */
-    public ClientView() {
+    private ClientController controlador;
+    
+    public ClientView() throws DBException {
         initComponents();
+        
+        this.setLocationRelativeTo(null);
+
+        this.controlador = new ClientController();
+
+        preencheTabela();
+    }
+    
+    public void preencheTabela() {;
+
+        for (int i = 0; i < this.controlador.getClientList().size(); i++) {
+
+            ((DefaultTableModel) this.ClientTable.getModel()).addRow(
+                    new Object[]{
+                        this.controlador.getClientList().get(i).getName(),
+                        Utils.formatarData(this.controlador.getClientList().get(i).getBirth_date()),
+                        this.controlador.getClientList().get(i).getCpf(),
+                        this.controlador.getClientList().get(i).getRg(),
+                        this.controlador.getClientList().get(i).getPhone(),
+                        this.controlador.getClientList().get(i).getAddress(),
+                        this.controlador.getClientList().get(i).getCep(),
+                        this.controlador.getClientList().get(i).getAddress_number(),
+                        this.controlador.getClientList().get(i).getAddress_neighborhood(),
+                        this.controlador.getClientList().get(i).getAddress_city(),
+                        this.controlador.getClientList().get(i).getAddress_state(),
+                  }
+            );
+        }
     }
 
     /**
@@ -28,7 +66,7 @@ public class ClientView extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        ClientTable = new javax.swing.JTable();
         ButtonDelete = new javax.swing.JToggleButton();
         ButtonBack = new javax.swing.JToggleButton();
         ButtonEdit = new javax.swing.JToggleButton();
@@ -37,8 +75,8 @@ public class ClientView extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTable1.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        ClientTable.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        ClientTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -54,8 +92,8 @@ public class ClientView extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jTable1.getTableHeader().setReorderingAllowed(false);
-        jScrollPane1.setViewportView(jTable1);
+        ClientTable.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(ClientTable);
 
         ButtonDelete.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
         ButtonDelete.setText("Excluir");
@@ -140,7 +178,10 @@ public class ClientView extends javax.swing.JFrame {
     }//GEN-LAST:event_ButtonDeleteActionPerformed
 
     private void ButtonBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonBackActionPerformed
-        // TODO add your handling code here:
+        FMenu menuScreen  = new FMenu();
+        
+        menuScreen.setVisible(true);
+        dispose();
     }//GEN-LAST:event_ButtonBackActionPerformed
 
     private void ButtonEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonEditActionPerformed
@@ -212,7 +253,11 @@ public class ClientView extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ClientView().setVisible(true);
+                try {
+                    new ClientView().setVisible(true);
+                } catch (DBException ex) {
+                    Logger.getLogger(ClientView.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
@@ -222,8 +267,8 @@ public class ClientView extends javax.swing.JFrame {
     private javax.swing.JToggleButton ButtonDelete;
     private javax.swing.JToggleButton ButtonEdit;
     private javax.swing.JToggleButton ButtonNew;
+    private javax.swing.JTable ClientTable;
     private javax.swing.JLabel Title;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }

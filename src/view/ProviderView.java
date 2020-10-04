@@ -5,19 +5,51 @@
  */
 package view;
 
+import controller.ProviderController;
+import dao.DBException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
+import model.Utils;
+
 /**
  *
  * @author jairo
  */
+
+
 public class ProviderView extends javax.swing.JFrame {
 
     /**
      * Creates new form ProviderView
      */
-    public ProviderView() {
+    private ProviderController controlador;
+    
+    public ProviderView() throws DBException {
         initComponents();
+        
+        this.setLocationRelativeTo(null);
+
+        this.controlador = new ProviderController();
+
+        preencheTabela();
     }
 
+    
+        public void preencheTabela() {
+        for (int i = 0; i < this.controlador.getProviderList().size(); i++) {
+
+            ((DefaultTableModel) this.ProviderTable.getModel()).addRow(
+                    new Object[]{
+                        this.controlador.getProviderList().get(i).getCompany_name(),
+                        this.controlador.getProviderList().get(i).getTrade_name(),
+                        this.controlador.getProviderList().get(i).getCnpj(),
+                        this.controlador.getProviderList().get(i).getPhone(),
+                        this.controlador.getProviderList().get(i).getEmail(),
+                  }
+            );
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -28,7 +60,7 @@ public class ProviderView extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        Table = new javax.swing.JTable();
+        ProviderTable = new javax.swing.JTable();
         ButtonDelete = new javax.swing.JToggleButton();
         ButtonBack = new javax.swing.JToggleButton();
         ButtonEdit = new javax.swing.JToggleButton();
@@ -39,8 +71,8 @@ public class ProviderView extends javax.swing.JFrame {
         setTitle("Panel");
         setResizable(false);
 
-        Table.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        Table.setModel(new javax.swing.table.DefaultTableModel(
+        ProviderTable.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        ProviderTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -56,11 +88,11 @@ public class ProviderView extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        Table.getTableHeader().setReorderingAllowed(false);
-        jScrollPane1.setViewportView(Table);
-        if (Table.getColumnModel().getColumnCount() > 0) {
-            Table.getColumnModel().getColumn(0).setResizable(false);
-            Table.getColumnModel().getColumn(4).setResizable(false);
+        ProviderTable.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(ProviderTable);
+        if (ProviderTable.getColumnModel().getColumnCount() > 0) {
+            ProviderTable.getColumnModel().getColumn(0).setResizable(false);
+            ProviderTable.getColumnModel().getColumn(4).setResizable(false);
         }
 
         ButtonDelete.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
@@ -146,7 +178,10 @@ public class ProviderView extends javax.swing.JFrame {
     }//GEN-LAST:event_ButtonDeleteActionPerformed
 
     private void ButtonBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonBackActionPerformed
-        // TODO add your handling code here:
+        FMenu menuScreen  = new FMenu();
+        
+        menuScreen.setVisible(true);
+        dispose();
     }//GEN-LAST:event_ButtonBackActionPerformed
 
     private void ButtonEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonEditActionPerformed
@@ -187,7 +222,11 @@ public class ProviderView extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ProviderView().setVisible(true);
+                try {
+                    new ProviderView().setVisible(true);
+                } catch (DBException ex) {
+                    Logger.getLogger(ProviderView.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
@@ -197,7 +236,7 @@ public class ProviderView extends javax.swing.JFrame {
     private javax.swing.JToggleButton ButtonDelete;
     private javax.swing.JToggleButton ButtonEdit;
     private javax.swing.JToggleButton ButtonNew;
-    private javax.swing.JTable Table;
+    private javax.swing.JTable ProviderTable;
     private javax.swing.JLabel Title;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables

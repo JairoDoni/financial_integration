@@ -25,6 +25,20 @@ public class Client {
     private String address_neighborhood;
     private String address_city;
     private String address_state;
+    
+    public Client() {
+        this.id = 0;
+        this.name = "";
+        this.birth_date = Calendar.getInstance();
+        this.cpf = "";
+        this.phone = "";
+        this.address = "";
+        this.cep = "";
+        this.address_number = "";
+        this.address_neighborhood = "";
+        this.address_city = "";
+        this.address_state = "";
+    }
 
     public Client(int id, String name, Calendar birth_date, String cpf, String rg, String phone) throws Exception {
         if(name == null || "".equals(name) || birth_date == null || cpf == null || "".equals(cpf) || rg == null || "".equals(rg) || phone == null || "".equals(phone)){
@@ -55,6 +69,8 @@ public class Client {
         this.address_city = address_city;
         this.address_state = address_state;
     }
+
+ 
 
     public int getId() {
         return id;

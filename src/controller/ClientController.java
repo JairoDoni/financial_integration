@@ -30,7 +30,7 @@ public class ClientController {
         return this.client;
     }
 
-    public ArrayList<Client> getListaTodosFornecedores() {
+    public ArrayList<Client> getClientList() {
         return this.clientList;
     }
 }

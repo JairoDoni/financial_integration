@@ -11,6 +11,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import view.DebitsView;
 import javax.swing.table.DefaultTableModel;
+import model.Utils;
 
 /**
  *
@@ -38,14 +39,14 @@ public class DebitsView extends javax.swing.JFrame {
 
         for (int i = 0; i < this.controlador.getDebitList().size(); i++) {
 
-            ((DefaultTableModel) this.DebitList.getModel()).addRow(
+            ((DefaultTableModel) this.DebitTable.getModel()).addRow(
                     new Object[]{
-                        this.controlador.getDebitList().get(i).getId(),
-                        //Utilitarios.formatarData(this.controlador.getDebitList().get(i).getDat_compra()),
-                        this.controlador.getDebitList().get(i).getValue(),
+                        this.controlador.getDebitList().get(i).getDescription(),
+                        Utils.formatarData(this.controlador.getDebitList().get(i).getBuy_date()),
+                        Utils.formatarData(this.controlador.getDebitList().get(i).getBuy_date()),
                         this.controlador.getDebitList().get(i).getValue(),
                         this.controlador.getDebitList().get(i).getValue_paid(),
-                        this.controlador.getDebitList().get(i).getDescription(),
+                        this.controlador.getDebitList().get(i).isPaid_out(),
                         this.controlador.getDebitList().get(i).getNote(),
                         this.controlador.getDebitList().get(i).getFornecedores_id(),
                   }
@@ -63,7 +64,7 @@ public class DebitsView extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        DebitList = new javax.swing.JTable();
+        DebitTable = new javax.swing.JTable();
         ButtonDelete = new javax.swing.JToggleButton();
         ButtonBack = new javax.swing.JToggleButton();
         ButtonEdit = new javax.swing.JToggleButton();
@@ -73,25 +74,25 @@ public class DebitsView extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
-        DebitList.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        DebitList.setModel(new javax.swing.table.DefaultTableModel(
+        DebitTable.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        DebitTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Data de Compra", "Data de Vencimento", "Valor", "Valor Pago", "Pago", "Descrição", "Observação", "Fornecedores"
+                "Descrição", "Data de Compra", "Data de Vencimento", "Valor", "Valor Pago", "Pago", "Observação", "Fornecedores"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, true, true, true
+                false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        DebitList.getTableHeader().setReorderingAllowed(false);
-        jScrollPane1.setViewportView(DebitList);
+        DebitTable.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(DebitTable);
 
         ButtonDelete.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
         ButtonDelete.setText("Excluir");
@@ -177,7 +178,10 @@ public class DebitsView extends javax.swing.JFrame {
     }//GEN-LAST:event_ButtonDeleteActionPerformed
 
     private void ButtonBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonBackActionPerformed
-        // TODO add your handling code here:
+        FMenu menuScreen  = new FMenu();
+        
+        menuScreen.setVisible(true);
+        dispose();
     }//GEN-LAST:event_ButtonBackActionPerformed
 
     private void ButtonEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonEditActionPerformed
@@ -233,7 +237,7 @@ public class DebitsView extends javax.swing.JFrame {
     private javax.swing.JToggleButton ButtonDelete;
     private javax.swing.JToggleButton ButtonEdit;
     private javax.swing.JToggleButton ButtonNew;
-    private javax.swing.JTable DebitList;
+    private javax.swing.JTable DebitTable;
     private javax.swing.JLabel Title;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables

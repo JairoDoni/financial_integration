@@ -5,6 +5,13 @@
  */
 package view;
 
+import controller.CreditController;
+import dao.DBException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
+import model.Utils;
+
 /**
  *
  * @author jairo
@@ -14,8 +21,35 @@ public class CreditView extends javax.swing.JFrame {
     /**
      * Creates new form ProviderView
      */
+    private CreditController controlador;
     public CreditView() {
         initComponents();
+            
+        this.setLocationRelativeTo(null);
+
+        this.controlador = new CreditController();
+
+        preencheTabela();
+    }
+    
+     public void preencheTabela() {
+
+        for (int i = 0; i < this.controlador.getCreditList().size(); i++) {
+
+            ((DefaultTableModel) this.CreditTable.getModel()).addRow(
+                    new Object[]{
+                        this.controlador.getCreditList().get(i).getDescription(),
+                        Utils.formatarData(this.controlador.getCreditList().get(i).getSale_date()),
+                        Utils.formatarData(this.controlador.getCreditList().get(i).getDue_date()),
+                        Utils.formatarData(this.controlador.getCreditList().get(i).getPayment_date()),
+                        this.controlador.getCreditList().get(i).getValue(),
+                        this.controlador.getCreditList().get(i).getValue_paid(),
+                        this.controlador.getCreditList().get(i).isPaid_out(),
+                        this.controlador.getCreditList().get(i).getNote(),
+                        this.controlador.getCreditList().get(i).getClient_id(),
+                  }
+            );
+        }
     }
 
     /**
@@ -28,7 +62,7 @@ public class CreditView extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        CreditTable = new javax.swing.JTable();
         ButtonDelete = new javax.swing.JToggleButton();
         ButtonBack = new javax.swing.JToggleButton();
         ButtonEdit = new javax.swing.JToggleButton();
@@ -37,8 +71,8 @@ public class CreditView extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTable1.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        CreditTable.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        CreditTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -54,8 +88,8 @@ public class CreditView extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jTable1.getTableHeader().setReorderingAllowed(false);
-        jScrollPane1.setViewportView(jTable1);
+        CreditTable.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(CreditTable);
 
         ButtonDelete.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
         ButtonDelete.setText("Excluir");
@@ -140,7 +174,10 @@ public class CreditView extends javax.swing.JFrame {
     }//GEN-LAST:event_ButtonDeleteActionPerformed
 
     private void ButtonBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonBackActionPerformed
-        // TODO add your handling code here:
+        FMenu menuScreen  = new FMenu();
+        
+        menuScreen.setVisible(true);
+        dispose();
     }//GEN-LAST:event_ButtonBackActionPerformed
 
     private void ButtonEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonEditActionPerformed
@@ -198,8 +235,8 @@ public class CreditView extends javax.swing.JFrame {
     private javax.swing.JToggleButton ButtonDelete;
     private javax.swing.JToggleButton ButtonEdit;
     private javax.swing.JToggleButton ButtonNew;
+    private javax.swing.JTable CreditTable;
     private javax.swing.JLabel Title;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }
