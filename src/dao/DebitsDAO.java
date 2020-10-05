@@ -142,7 +142,7 @@ public class DebitsDAO implements IDAO{
          Connection con = Conection.getConexao();
         Statement ps = null;
         ResultSet rs = null;
-        Debits d = new Debits();
+        
         ArrayList<Debits> list = new ArrayList<Debits>();
 
         try {
@@ -152,7 +152,7 @@ public class DebitsDAO implements IDAO{
             rs = ps.executeQuery("SELECT * FROM debitos");
 
             while( rs.next()) {
-            
+                Debits d = new Debits();
                 Calendar n = Calendar.getInstance();
                 n.setTimeInMillis(rs.getDate("dat_compra").getTime());
                 d.setBuy_date(n);

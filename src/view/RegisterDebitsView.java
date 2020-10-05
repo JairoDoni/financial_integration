@@ -9,6 +9,7 @@ import controller.DebitController;
 import controller.ProviderController;
 import dao.DBException;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -26,7 +27,6 @@ public class RegisterDebitsView extends javax.swing.JFrame {
      */
     private ProviderController controlador;
     
-             
     public RegisterDebitsView() throws DBException {
            initComponents();
         
@@ -313,34 +313,34 @@ public class RegisterDebitsView extends javax.swing.JFrame {
 
     private void ButtonRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonRegisterActionPerformed
         
-        Debits d = new Debits();
+      SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 
-        DebitController controlDebit;
-        
-        
-        
-        
-        
         try {
-            controlDebit = new DebitController();
-            d = new Debits();
-              controlDebit.cadastrar(
-                    CampoDataCompra.getDateFormatString(),
-                    CampoDataVencimento.getDateFormatString(),
-                    CampoDataPagamento.getDateFormatString(),
-                    CampoValor.getText(),
-                    CampoValorPago.getText(),
-                    RadioSim.getText(),
+            DebitController d = new DebitController();
+            System.out.println("teste 2 " + formatter.format(CampoDataCompra.getDate())+
+                    formatter.format(CampoDataVencimento.getDate())+
+                    formatter.format(CampoDataPagamento.getDate())+
+                    Double.parseDouble(CampoValor.getText())
+                    + Double.parseDouble(CampoValorPago.getText())
+                    + Boolean.parseBoolean(RadioSim.getText())
+                    + CampoDescricao.getText()
+                    + CampoObservacao.getText()
+                    + Integer.parseInt(CampoIDFornecedor.getText()));
+
+            d.cadastrar(
+                    formatter.format(CampoDataCompra.getDate()),
+                    formatter.format(CampoDataVencimento.getDate()),
+                    formatter.format(CampoDataPagamento.getDate()),
+                    Double.parseDouble(CampoValor.getText()),
+                    Double.parseDouble(CampoValorPago.getText()),
+                    Boolean.parseBoolean(RadioSim.getText()),
                     CampoDescricao.getText(),
                     CampoObservacao.getText(),
-                    CampoIDFornecedor.getText());
-        } catch (DBException ex) {
-            Logger.getLogger(RegisterDebitsView.class.getName()).log(Level.SEVERE, null, ex);
+                    Integer.parseInt(CampoIDFornecedor.getText()));
+            
         } catch (Exception ex) {
             Logger.getLogger(RegisterDebitsView.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-          
 
        
     }//GEN-LAST:event_ButtonRegisterActionPerformed

@@ -8,9 +8,11 @@ package view;
 import controller.DebitController;
 import controller.ProviderController;
 import dao.DBException;
+import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
+import model.Debits;
 
 /**
  *
@@ -24,7 +26,7 @@ public class EditDebitsView extends javax.swing.JFrame {
     private ProviderController controlador;
     
     public EditDebitsView() throws DBException {
-           initComponents();
+        initComponents();
         
         this.setLocationRelativeTo(null);
 
@@ -54,6 +56,7 @@ public class EditDebitsView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        Quitado = new javax.swing.ButtonGroup();
         Title = new javax.swing.JLabel();
         CampoDescricao = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
@@ -72,8 +75,8 @@ public class EditDebitsView extends javax.swing.JFrame {
         CampoValorPago = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
+        RadioSim = new javax.swing.JRadioButton();
+        RadioNao = new javax.swing.JRadioButton();
         CampoIDFornecedor = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -133,16 +136,18 @@ public class EditDebitsView extends javax.swing.JFrame {
         jLabel10.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         jLabel10.setText("Quitado");
 
-        jRadioButton1.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        jRadioButton1.setText("Sim");
-        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
+        Quitado.add(RadioSim);
+        RadioSim.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        RadioSim.setText("Sim");
+        RadioSim.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton1ActionPerformed(evt);
+                RadioSimActionPerformed(evt);
             }
         });
 
-        jRadioButton2.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        jRadioButton2.setText("Não");
+        Quitado.add(RadioNao);
+        RadioNao.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        RadioNao.setText("Não");
 
         CampoIDFornecedor.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
 
@@ -187,9 +192,9 @@ public class EditDebitsView extends javax.swing.JFrame {
                                 .addComponent(CampoValor))
                             .addComponent(jLabel10)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jRadioButton1)
+                                .addComponent(RadioSim)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jRadioButton2)))
+                                .addComponent(RadioNao)))
                         .addGap(30, 30, 30)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel8)
@@ -265,8 +270,8 @@ public class EditDebitsView extends javax.swing.JFrame {
                                 .addComponent(jLabel10)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jRadioButton1)
-                                    .addComponent(jRadioButton2)))
+                                    .addComponent(RadioSim)
+                                    .addComponent(RadioNao)))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel9)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -288,12 +293,40 @@ public class EditDebitsView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void ButtonRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonRegisterActionPerformed
-        // TODO add your handling code here:
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+
+        try {
+            DebitController d = new DebitController();
+            System.out.println("teste 2 " + formatter.format(CampoDataCompra.getDate())+
+                    formatter.format(CampoDataVencimento.getDate())+
+                    formatter.format(CampoDataPagamento.getDate())+
+                    Double.parseDouble(CampoValor.getText())
+                    + Double.parseDouble(CampoValorPago.getText())
+                    + Boolean.parseBoolean(RadioSim.getText())
+                    + CampoDescricao.getText()
+                    + CampoObservacao.getText()
+                    + Integer.parseInt(CampoIDFornecedor.getText()));
+
+            d.cadastrar(
+                    formatter.format(CampoDataCompra.getDate()),
+                    formatter.format(CampoDataVencimento.getDate()),
+                    formatter.format(CampoDataPagamento.getDate()),
+                    Double.parseDouble(CampoValor.getText()),
+                    Double.parseDouble(CampoValorPago.getText()),
+                    Boolean.parseBoolean(RadioSim.getText()),
+                    CampoDescricao.getText(),
+                    CampoObservacao.getText(),
+                    Integer.parseInt(CampoIDFornecedor.getText()));
+            
+        } catch (Exception ex) {
+            Logger.getLogger(RegisterDebitsView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }//GEN-LAST:event_ButtonRegisterActionPerformed
 
-    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
+    private void RadioSimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RadioSimActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton1ActionPerformed
+    }//GEN-LAST:event_RadioSimActionPerformed
 
     private void ButtonBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonBackActionPerformed
          DebitsView debitScreen = null;
@@ -361,6 +394,9 @@ public class EditDebitsView extends javax.swing.JFrame {
     private javax.swing.JTextField CampoValor;
     private javax.swing.JTextField CampoValorPago;
     private javax.swing.JTable ProviderTable;
+    private javax.swing.ButtonGroup Quitado;
+    private javax.swing.JRadioButton RadioNao;
+    private javax.swing.JRadioButton RadioSim;
     private javax.swing.JLabel Title;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -371,8 +407,6 @@ public class EditDebitsView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

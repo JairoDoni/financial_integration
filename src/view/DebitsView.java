@@ -9,8 +9,10 @@ import controller.DebitController;
 import dao.DBException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import view.DebitsView;
 import javax.swing.table.DefaultTableModel;
+import model.Debits;
 import model.Utils;
 
 /**
@@ -80,11 +82,11 @@ public class DebitsView extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Descrição", "Data de Compra", "Data de Vencimento", "Valor", "Valor Pago", "Pago", "Observação", "Fornecedores"
+                "ID", "Descrição", "Data de Compra", "Data de Vencimento", "Valor", "Valor Pago", "Pago", "Observação", "Fornecedores"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -185,7 +187,9 @@ public class DebitsView extends javax.swing.JFrame {
     }//GEN-LAST:event_ButtonBackActionPerformed
 
     private void ButtonEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonEditActionPerformed
+     
         EditDebitsView editScreen = null;
+        
         try {
             editScreen = new EditDebitsView();
         } catch (DBException ex) {

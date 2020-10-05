@@ -138,7 +138,7 @@ public class CreditDAO implements IDAO {
         Connection con = Conection.getConexao();
         Statement ps = null;
         ResultSet rs = null;
-        Credit c = new Credit();
+        
         ArrayList<Credit> list = new ArrayList<Credit>();
 
         try {
@@ -148,7 +148,7 @@ public class CreditDAO implements IDAO {
             rs = ps.executeQuery("SELECT * FROM creditos");
 
             while( rs.next()) {
-
+                Credit c = new Credit();
                 Calendar calend = Calendar.getInstance();
                 calend.setTimeInMillis(rs.getDate("dat_venda").getTime());
                 c.setSale_date(calend);
