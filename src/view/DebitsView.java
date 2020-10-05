@@ -7,13 +7,10 @@ package view;
 
 import controller.DebitController;
 import dao.DBException;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 import view.DebitsView;
 import javax.swing.table.DefaultTableModel;
-import model.Debits;
 import model.Utils;
 
 /**
@@ -22,27 +19,25 @@ import model.Utils;
  */
 public class DebitsView extends javax.swing.JFrame {
 
-    private ArrayList<Debits> deb = new ArrayList();
     /**
      * Creates new form ProviderView
      */
     private DebitController controlador;
-
+    
     public DebitsView() throws DBException {
         initComponents();
         
         this.setLocationRelativeTo(null);
 
         this.controlador = new DebitController();
-        
-        preencheTabela();
-        System.out.println(deb.size() + "ID:  " + deb.get(2).getId());
-    }
 
+        preencheTabela();
+    }
+    
+    
     public void preencheTabela() {
-        int i = 0;
-        deb = controlador.getDebitList(); 
-        for (i = 0; i < this.controlador.getDebitList().size(); i++) {
+
+        for (int i = 0; i < this.controlador.getDebitList().size(); i++) {
 
             ((DefaultTableModel) this.DebitTable.getModel()).addRow(
                     new Object[]{
@@ -53,11 +48,10 @@ public class DebitsView extends javax.swing.JFrame {
                         this.controlador.getDebitList().get(i).getValue_paid(),
                         this.controlador.getDebitList().get(i).isPaid_out(),
                         this.controlador.getDebitList().get(i).getNote(),
-                        this.controlador.getDebitList().get(i).getFornecedores_id(),}
+                        this.controlador.getDebitList().get(i).getFornecedores_id(),
+                  }
             );
-            
         }
-
     }
 
     /**
@@ -178,36 +172,14 @@ public class DebitsView extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-
+  
     private void ButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonDeleteActionPerformed
-        if (JOptionPane.showConfirmDialog(rootPane, "Deseja mesmo excluir?") == 0) {
-            
-                DefaultTableModel modelo = (DefaultTableModel) DebitTable.getModel();
-                
-                int row = DebitTable.getSelectedRow();
-                if (DebitTable.getSelectedRow() != -1) {
-                    try {
-                        controlador.excluir(row + 1);
-                        
-                        
-                    } catch (DBException ex) {
-                        Logger.getLogger(DebitsView.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    JOptionPane.showMessageDialog(null, "Excluido com Sucesso.");
-
-                    modelo.removeRow(row + 1);
-
-                    JOptionPane.showMessageDialog(rootPane,
-                            "Nenhum Registro Selecionado!");
-
-                
-            }
-        }
+        // TODO add your handling code here:
     }//GEN-LAST:event_ButtonDeleteActionPerformed
 
     private void ButtonBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonBackActionPerformed
-        FMenu menuScreen = new FMenu();
-
+        FMenu menuScreen  = new FMenu();
+        
         menuScreen.setVisible(true);
         dispose();
     }//GEN-LAST:event_ButtonBackActionPerformed
@@ -219,7 +191,7 @@ public class DebitsView extends javax.swing.JFrame {
         } catch (DBException ex) {
             Logger.getLogger(DebitsView.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        
         editScreen.setVisible(true);
         dispose();
     }//GEN-LAST:event_ButtonEditActionPerformed
@@ -231,7 +203,7 @@ public class DebitsView extends javax.swing.JFrame {
         } catch (DBException ex) {
             Logger.getLogger(DebitsView.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        
         registerScreen.setVisible(true);
         dispose();
     }//GEN-LAST:event_ButtonNewActionPerformed

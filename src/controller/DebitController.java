@@ -71,7 +71,8 @@ public class DebitController {
 
     public void cadastrar(String dat_compra, String dat_vencimento,String dat_pagamento,Double valor, Double valor_pago, Boolean pago, String descricao, String observacao, int fornecedores_id) throws DBException, Exception {
 
-        Debits d = new Debits();       
+        Debits d = new Debits();
+            
             Calendar calend = Calendar.getInstance();
             Date date = new Date(dat_compra);
             calend.setTime(date);

@@ -9,7 +9,6 @@ import controller.DebitController;
 import controller.ProviderController;
 import dao.DBException;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -26,11 +25,11 @@ public class RegisterDebitsView extends javax.swing.JFrame {
      * Creates new form RegisterProvider
      */
     private ProviderController controlador;
-    private DebitController debitsCon;
-
+    
+             
     public RegisterDebitsView() throws DBException {
-        initComponents();
-
+           initComponents();
+        
         this.setLocationRelativeTo(null);
 
         this.controlador = new ProviderController();
@@ -38,17 +37,18 @@ public class RegisterDebitsView extends javax.swing.JFrame {
         preencheTabela();
     }
 
+    
     public void preencheTabela() {
         for (int i = 0; i < this.controlador.getProviderList().size(); i++) {
 
             ((DefaultTableModel) this.ProviderTable.getModel()).addRow(
                     new Object[]{
                         this.controlador.getProviderList().get(i).getId(),
-                        this.controlador.getProviderList().get(i).getCompany_name(),}
+                        this.controlador.getProviderList().get(i).getCompany_name(),
+                  }
             );
         }
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -312,38 +312,37 @@ public class RegisterDebitsView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void ButtonRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonRegisterActionPerformed
+        
+        Debits d = new Debits();
 
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        DebitController controlDebit;
+        
+        
+        
+        
         
         try {
-           DebitController d = new DebitController(); 
-            System.out.println("teste 2 " + formatter.format(CampoDataCompra.getDate())+
-                    formatter.format(CampoDataVencimento.getDate())+
-                    formatter.format(CampoDataPagamento.getDate())+
-                    Double.parseDouble(CampoValor.getText())
-                    + Double.parseDouble(CampoValorPago.getText())
-                    + Boolean.parseBoolean(RadioSim.getText())
-                    + CampoDescricao.getText()
-                    + CampoObservacao.getText()
-                    + Integer.parseInt(CampoIDFornecedor.getText()));
-
-                d.cadastrar(
-                    formatter.format(CampoDataCompra.getDate()),
-                    formatter.format(CampoDataVencimento.getDate()),
-                    formatter.format(CampoDataPagamento.getDate()),
-                    Double.parseDouble(CampoValor.getText()),
-                    Double.parseDouble(CampoValorPago.getText()),
-                    Boolean.parseBoolean(RadioSim.getText()),
+            controlDebit = new DebitController();
+            d = new Debits();
+              controlDebit.cadastrar(
+                    CampoDataCompra.getDateFormatString(),
+                    CampoDataVencimento.getDateFormatString(),
+                    CampoDataPagamento.getDateFormatString(),
+                    CampoValor.getText(),
+                    CampoValorPago.getText(),
+                    RadioSim.getText(),
                     CampoDescricao.getText(),
                     CampoObservacao.getText(),
-                    Integer.parseInt(CampoIDFornecedor.getText()));
-
-            
+                    CampoIDFornecedor.getText());
+        } catch (DBException ex) {
+            Logger.getLogger(RegisterDebitsView.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {
             Logger.getLogger(RegisterDebitsView.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+          
 
+       
     }//GEN-LAST:event_ButtonRegisterActionPerformed
 
     private void RadioSimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RadioSimActionPerformed
@@ -357,14 +356,14 @@ public class RegisterDebitsView extends javax.swing.JFrame {
         } catch (DBException ex) {
             Logger.getLogger(RegisterDebitsView.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        
         debitScreen.setVisible(true);
         dispose();
     }//GEN-LAST:event_ButtonBackActionPerformed
 
     private void RadioSimStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_RadioSimStateChanged
         RadioSim.setSelected(true);
-
+                
     }//GEN-LAST:event_RadioSimStateChanged
 
     private void RadioNaoStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_RadioNaoStateChanged
@@ -372,7 +371,7 @@ public class RegisterDebitsView extends javax.swing.JFrame {
     }//GEN-LAST:event_RadioNaoStateChanged
 
     private void RadioNaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RadioNaoActionPerformed
-        RadioNao.setSelected(false);
+          RadioNao.setSelected(false);
     }//GEN-LAST:event_RadioNaoActionPerformed
 
     /**

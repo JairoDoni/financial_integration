@@ -17,12 +17,11 @@ public class Testes {
     /**
      * @param args the command line arguments
      */
-   public static void main(String[] args) throws DBException, Exception {
-        DebitController d = new DebitController();
-     d.cadastrar("10/10/10", "10/10/10", "10/10/10", 30.00, 50.00, false, "Test", "f", 1);
+//    public static void main(String[] args) throws DBException, Exception {
+//        DebitController d = new DebitController();
+//        d.cadastrar("10/10/10", "10/10/10", "10/10/10", 30.00, 50.00, false, "Test", "f", 1);
 //        CreditController c = new CreditController();
 //        c.cadastrar("10/10/10", "10/10/10", "10/10/10", 30.00, 50.00, false, "Test", "f", 1);
 //    }
 //    
-   }
 }

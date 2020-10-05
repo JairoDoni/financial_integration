@@ -142,7 +142,7 @@ public class DebitsDAO implements IDAO{
          Connection con = Conection.getConexao();
         Statement ps = null;
         ResultSet rs = null;
-        
+        Debits d = new Debits();
         ArrayList<Debits> list = new ArrayList<Debits>();
 
         try {
@@ -152,10 +152,8 @@ public class DebitsDAO implements IDAO{
             rs = ps.executeQuery("SELECT * FROM debitos");
 
             while( rs.next()) {
-                
-                Debits d = new Debits();
+            
                 Calendar n = Calendar.getInstance();
-                d.setId(rs.getInt("id "));
                 n.setTimeInMillis(rs.getDate("dat_compra").getTime());
                 d.setBuy_date(n);
                 n.setTimeInMillis(rs.getDate("dat_vencimento").getTime());
@@ -168,7 +166,7 @@ public class DebitsDAO implements IDAO{
                 d.setDescription(rs.getString("descricao"));
                 d.setNote(rs.getString("observacao"));
                 d.setFornecedores_id(rs.getInt("fornecedores_id"));
-                
+
                 list.add(d);                  
             }
         } catch (Exception ex) {
