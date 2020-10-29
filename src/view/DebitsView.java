@@ -5,6 +5,7 @@
  */
 package view;
 
+import com.sun.javafx.fxml.BeanAdapter;
 import controller.DebitController;
 import dao.DBException;
 import java.util.logging.Level;
@@ -38,9 +39,9 @@ public class DebitsView extends javax.swing.JFrame {
     
     
     public void preencheTabela() {
-
+        
         for (int i = 0; i < this.controlador.getDebitList().size(); i++) {
-
+            
             ((DefaultTableModel) this.DebitTable.getModel()).addRow(
                     new Object[]{
                         this.controlador.getDebitList().get(i).getDescription(),
@@ -82,11 +83,11 @@ public class DebitsView extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Descrição", "Data de Compra", "Data de Vencimento", "Valor", "Valor Pago", "Pago", "Observação", "Fornecedores"
+                "Descrição", "Data de Compra", "Data de Vencimento", "Valor", "Valor Pago", "Pago", "Observação", "Fornecedores"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -176,7 +177,18 @@ public class DebitsView extends javax.swing.JFrame {
 
   
     private void ButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonDeleteActionPerformed
-        // TODO add your handling code here:
+        int posicao = DebitTable.getSelectedRow();
+        int idSelected = controlador.getDebitList().get(posicao).getId();
+        
+        
+        try {
+            controlador.excluir(idSelected);
+            DefaultTableModel modelo = (DefaultTableModel) DebitTable.getModel();
+            modelo.setNumRows(0);
+            preencheTabela();
+        } catch (DBException ex) {
+            Logger.getLogger(DebitsView.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_ButtonDeleteActionPerformed
 
     private void ButtonBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonBackActionPerformed
@@ -187,17 +199,24 @@ public class DebitsView extends javax.swing.JFrame {
     }//GEN-LAST:event_ButtonBackActionPerformed
 
     private void ButtonEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonEditActionPerformed
-     
-        EditDebitsView editScreen = null;
+        
+        int posicao = DebitTable.getSelectedRow();
+        int idSelected = controlador.getDebitList().get(posicao).getId();
+        
+        
+        
         
         try {
-            editScreen = new EditDebitsView();
+            EditDebitsView editScreen = new EditDebitsView();
+            this.controlador.buscarPorId(posicao);
+            editScreen.setController(this.controlador);
+            editScreen.setVisible(true);
+            dispose();
         } catch (DBException ex) {
             Logger.getLogger(DebitsView.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        editScreen.setVisible(true);
-        dispose();
+       
     }//GEN-LAST:event_ButtonEditActionPerformed
 
     private void ButtonNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonNewActionPerformed

@@ -140,7 +140,7 @@ public class ClientDAO implements IDAO {
         Connection con = Conection.getConexao();
         Statement ps = null;
         ResultSet rs = null;
-        Client c =  new Client();
+        
         ArrayList<Client> list = new ArrayList<Client>();
 
         try {
@@ -150,7 +150,7 @@ public class ClientDAO implements IDAO {
             rs = ps.executeQuery("SELECT * FROM clientes");
 
             while( rs.next()) {
-
+            Client c =  new Client();
             c.setName(rs.getString("nome"));
             //c.setBirth_date(rs.getString("dat_nascimento"));
             c.setCpf(rs.getString("cpf"));

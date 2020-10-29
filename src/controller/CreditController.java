@@ -6,6 +6,7 @@
 package controller;
 
 import dao.CreditDAO;
+import dao.DBException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -30,14 +31,10 @@ public class CreditController {
         
     }
     
-    public void salvar(String dat_venda, String dat_vencimento, String dat_pagamento, Double valor, Double valor_pago, Boolean pago, String descricao, String observacao, Integer clientes_id) throws Exception{
+    public void salvar(String dat_venda, String dat_vencimento, String dat_pagamento, Double valor, Double valor_pago, Boolean pago, String descricao, String observacao, Integer clientes_id, int id) throws Exception{
        
-        Credit c;
-        
-        if(this.credit != null){
-            
-            c = this.credit;
-            
+       Credit c = new Credit();
+       
             Calendar calend = Calendar.getInstance();
             Date d = new Date(dat_venda);
             calend.setTime(d);
@@ -55,6 +52,7 @@ public class CreditController {
             c.setDescription(descricao);
             c.setNote(observacao);
             c.setClient_id(clientes_id);
+            c.setId(id);
             
             this.listaCred.set(ind, c);
 
@@ -62,7 +60,7 @@ public class CreditController {
 
             this.ind = 0;
             this.credit = null;
-        }
+        
     }
     
     public void cadastrar(String dat_venda, String dat_vencimento, String dat_pagamento, Double valor, Double valor_pago, Boolean pago, String descricao, String observacao, Integer clientes_id) throws Exception{
@@ -90,8 +88,9 @@ public class CreditController {
             this.listaCred.add(c);
             
     }
-    public void Excluir(int indice){
+    public void excluir(int indice){
         this.db.excluir(indice);
+        buscarTodos();
  
     }
     public void buscarTodos(){
@@ -100,8 +99,17 @@ public class CreditController {
         this.listaCred = cdao.buscaPorTodos();
         cdao = null;
     }
-      
+    public void buscarPorId(int ind) throws DBException {
+
+        this.ind = ind;
+        this.credit = this.listaCred.get(ind);
+    }  
+    
     public ArrayList<Credit> getCreditList(){
         return this.listaCred;
+    }
+    
+      public Credit getCredit(){
+        return this.credit;
     }
 }

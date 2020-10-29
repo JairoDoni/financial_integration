@@ -29,13 +29,9 @@ public class DebitController {
         this.debitList = db.buscaPorTodos();
     }
 
-    public void salvar(String dat_compra, String dat_vencimento,String dat_pagamento,Double valor, Double valor_pago, Boolean pago, String descricao, String observacao, int fornecedores_id) throws DBException, Exception {
+    public void salvar(String dat_compra, String dat_vencimento,String dat_pagamento,Double valor, Double valor_pago, Boolean pago, String descricao, String observacao, int fornecedores_id, int id) throws DBException, Exception {
        
-        Debits d;
-
-        if (this.debits != null) {
-
-            d = this.debits;
+        Debits d = new Debits();
             
             Calendar calend = Calendar.getInstance();
             Date date = new Date(dat_compra);
@@ -55,9 +51,7 @@ public class DebitController {
             d.setDescription(descricao);
             d.setNote(observacao);
             d.setFornecedores_id(fornecedores_id);
-         
-
-            
+            d.setId(id);
 
             this.debitList.set(indice, d);
 
@@ -66,7 +60,7 @@ public class DebitController {
             this.indice = 0;
             this.debits = null;
 
-        }
+        
     }
 
     public void cadastrar(String dat_compra, String dat_vencimento,String dat_pagamento,Double valor, Double valor_pago, Boolean pago, String descricao, String observacao, int fornecedores_id) throws DBException, Exception {
@@ -100,6 +94,8 @@ public class DebitController {
     public void excluir(int indice) throws DBException {
 
         this.db.excluir(indice);
+        buscarTodos();
+        
     }
     
     public void buscarTodos() throws DBException {
@@ -112,8 +108,18 @@ public class DebitController {
         
     }
     
+    public void buscarPorId(int indice) throws DBException {
+
+        this.indice = indice;
+        this.debits = this.debitList.get(indice);
+    }
+    
     public ArrayList<Debits> getDebitList(){
         return this.debitList;
+    }
+    
+    public Debits getDebit(){
+        return this.debits;
     }
  }
 

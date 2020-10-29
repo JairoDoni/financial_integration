@@ -111,6 +111,7 @@ public class CreditDAO implements IDAO {
             c.setDue_date(calend);
             calend.setTimeInMillis(rs.getDate("dat_pagamento").getTime());
             c.setPayment_date(calend);
+            c.setId(rs.getInt("id"));
             c.setValue(rs.getDouble("valor"));
             c.setValue_paid(rs.getDouble("valor_pago"));
             c.setPaid_out(rs.getBoolean("pago"));
@@ -156,6 +157,7 @@ public class CreditDAO implements IDAO {
                 c.setDue_date(calend);
                 calend.setTimeInMillis(rs.getDate("dat_pagamento").getTime());
                 c.setPayment_date(calend);
+                c.setId(rs.getInt("id"));
                 c.setValue(rs.getDouble("valor"));
                 c.setValue_paid(rs.getDouble("valor_pago"));
                 c.setPaid_out(rs.getBoolean("pago"));

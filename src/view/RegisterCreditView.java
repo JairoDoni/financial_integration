@@ -149,6 +149,11 @@ public class RegisterCreditView extends javax.swing.JFrame {
         Quitado.add(RadioNao);
         RadioNao.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         RadioNao.setText("Não");
+        RadioNao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RadioNaoActionPerformed(evt);
+            }
+        });
 
         CampoIDCliente.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
 
@@ -299,6 +304,7 @@ public class RegisterCreditView extends javax.swing.JFrame {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 
         try {
+            boolean status = false;
             CreditController c = new CreditController();
             System.out.println("teste 2 " + formatter.format(CampoDataVenda.getDate())+
                     formatter.format(CampoDataVencimento.getDate())+
@@ -309,6 +315,12 @@ public class RegisterCreditView extends javax.swing.JFrame {
                     + CampoDescricao.getText()
                     + CampoObservacao.getText()
                     + Integer.parseInt(CampoIDCliente.getText()));
+            
+            if(RadioSim.isSelected()){
+                status = true;
+            }else{
+                status = false;
+            }
 
             c.cadastrar(
                     formatter.format(CampoDataVenda.getDate()),
@@ -316,7 +328,7 @@ public class RegisterCreditView extends javax.swing.JFrame {
                     formatter.format(CampoDataPagamento.getDate()),
                     Double.parseDouble(CampoValor.getText()),
                     Double.parseDouble(CampoValorPago.getText()),
-                    Boolean.parseBoolean(RadioSim.getText()),
+                    status,
                     CampoDescricao.getText(),
                     CampoObservacao.getText(),
                     Integer.parseInt(CampoIDCliente.getText()));
@@ -328,7 +340,7 @@ public class RegisterCreditView extends javax.swing.JFrame {
     }//GEN-LAST:event_ButtonRegisterActionPerformed
 
     private void RadioSimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RadioSimActionPerformed
-        // TODO add your handling code here:
+        RadioSim.setSelected(true);
     }//GEN-LAST:event_RadioSimActionPerformed
 
     private void ButtonBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonBackActionPerformed
@@ -337,6 +349,10 @@ public class RegisterCreditView extends javax.swing.JFrame {
         creditScreen.setVisible(true);
         dispose();
     }//GEN-LAST:event_ButtonBackActionPerformed
+
+    private void RadioNaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RadioNaoActionPerformed
+        RadioNao.setSelected(true);
+    }//GEN-LAST:event_RadioNaoActionPerformed
 
     /**
      * @param args the command line arguments

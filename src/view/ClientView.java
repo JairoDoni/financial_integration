@@ -34,7 +34,7 @@ public class ClientView extends javax.swing.JFrame {
         preencheTabela();
     }
     
-    public void preencheTabela() {;
+    public void preencheTabela() {
 
         for (int i = 0; i < this.controlador.getClientList().size(); i++) {
 
@@ -54,6 +54,7 @@ public class ClientView extends javax.swing.JFrame {
                   }
             );
         }
+        
     }
 
     /**

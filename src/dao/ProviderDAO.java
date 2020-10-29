@@ -78,7 +78,7 @@ public class ProviderDAO implements IDAO {
          Connection con = Conection.getConexao();
         Statement ps = null;
         ResultSet rs = null;
-        Provider p = new Provider();
+        
         ArrayList<Provider> list = new ArrayList<Provider>();
 
         try {
@@ -88,7 +88,7 @@ public class ProviderDAO implements IDAO {
             rs = ps.executeQuery("SELECT * FROM fornecedores");
 
             while( rs.next()) {
-
+            Provider p = new Provider();    
             p.setCompany_name(rs.getString("razao_social"));
             p.setTrade_name(rs.getString("nome_fantasia"));
             p.setCnpj(rs.getString("cnpj"));

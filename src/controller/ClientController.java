@@ -30,6 +30,17 @@ public class ClientController {
         return this.client;
     }
 
+        
+    public void buscarTodos() throws DBException {
+
+        ClientDAO d = new ClientDAO();
+        
+        this.clientList = d.buscaPorTodos();
+        
+        d = null;
+        
+    }
+    
     public ArrayList<Client> getClientList() {
         return this.clientList;
     }

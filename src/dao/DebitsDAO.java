@@ -76,7 +76,8 @@ public class DebitsDAO implements IDAO{
             ps.setString(7, d.getDescription());
             ps.setString(8, d.getNote());
             ps.setInt(9, d.getFornecedores_id());
-           
+            ps.setInt(10, d.getId());
+            System.out.println("Update Funcionando");
 
             ps.executeUpdate();
 
@@ -114,6 +115,7 @@ public class DebitsDAO implements IDAO{
             d.setDue_date(n);
             n.setTimeInMillis(rs.getDate("dat_pagamento").getTime());
             d.setPayment_date(n);
+            d.setId(rs.getInt("id"));
             d.setValue(rs.getInt("valor"));
             d.setValue_paid(rs.getInt("valor_pago"));
             d.setPaid_out(rs.getBoolean("pago"));
@@ -146,7 +148,9 @@ public class DebitsDAO implements IDAO{
         ArrayList<Debits> list = new ArrayList<Debits>();
 
         try {
-
+            
+            
+            
             ps = con.createStatement();
             
             rs = ps.executeQuery("SELECT * FROM debitos");
@@ -161,6 +165,7 @@ public class DebitsDAO implements IDAO{
                 n.setTimeInMillis(rs.getDate("dat_pagamento").getTime());
                 d.setPayment_date(n);
                 d.setValue(rs.getInt("valor"));
+                d.setId(rs.getInt("id"));
                 d.setValue_paid(rs.getInt("valor_pago"));
                 d.setPaid_out(rs.getBoolean("pago"));
                 d.setDescription(rs.getString("descricao"));

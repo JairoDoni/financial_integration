@@ -7,7 +7,9 @@ package view;
 
 import controller.ClientController;
 import controller.CreditController;
+import controller.DebitController;
 import dao.DBException;
+import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
@@ -22,29 +24,50 @@ public class EditCreditView extends javax.swing.JFrame {
     /**
      * Creates new form RegisterProvider
      */
-    private ClientController controlador;
+    private CreditController controlador;
+    
+    private ClientController controladorCliente;
     
     public EditCreditView() throws DBException {
         initComponents();
         
         this.setLocationRelativeTo(null);
 
-        this.controlador = new ClientController();
+        this.controlador = new CreditController();
+        this.controladorCliente = new ClientController();
 
         preencheTabela();
     }
 
     
-    public void preencheTabela() {;
-
-        for (int i = 0; i < this.controlador.getClientList().size(); i++) {
+    public void preencheTabela() {
+        System.out.println("ID" + this.controladorCliente.getClientList().get(1).getId());
+        for (int i = 0; i < this.controladorCliente.getClientList().size(); i++) {
 
             ((DefaultTableModel) this.ClientTable.getModel()).addRow(
                     new Object[]{
-                        this.controlador.getClientList().get(i).getId(),
-                        this.controlador.getClientList().get(i).getName(),
+                        this.controladorCliente.getClientList().get(i).getId(),
+                        this.controladorCliente.getClientList().get(i).getName(),
                   }
             );
+        }
+    }
+    
+    public void setController(CreditController credit){
+        this.controlador = credit;
+        CampoDescricao.setText(String.valueOf(controlador.getCredit().getDescription()));
+        CampoDataVenda.setCalendar(controlador.getCredit().getSale_date());
+        CampoDataVencimento.setCalendar(controlador.getCredit().getDue_date());
+        CampoDataPagamento.setCalendar(controlador.getCredit().getPayment_date());
+        CampoValor.setText(String.valueOf(controlador.getCredit().getValue()));
+        CampoValorPago.setText(String.valueOf(controlador.getCredit().getValue_paid()));
+        CampoObservacao.setText(String.valueOf(controlador.getCredit().getNote()));
+        CampoIDCliente.setText(String.valueOf(controlador.getCredit().getClient_id()));
+        
+        if(controlador.getCredit().isPaid_out() == true){
+            RadioSim.setSelected(true);
+        }else{
+            RadioNao.setSelected(true);
         }
     }
     /**
@@ -56,6 +79,7 @@ public class EditCreditView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        Quitado = new javax.swing.ButtonGroup();
         Title = new javax.swing.JLabel();
         CampoDescricao = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
@@ -74,8 +98,8 @@ public class EditCreditView extends javax.swing.JFrame {
         CampoValorPago = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
+        RadioSim = new javax.swing.JRadioButton();
+        RadioNao = new javax.swing.JRadioButton();
         CampoIDCliente = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -135,16 +159,23 @@ public class EditCreditView extends javax.swing.JFrame {
         jLabel10.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         jLabel10.setText("Quitado");
 
-        jRadioButton1.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        jRadioButton1.setText("Sim");
-        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
+        Quitado.add(RadioSim);
+        RadioSim.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        RadioSim.setText("Sim");
+        RadioSim.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton1ActionPerformed(evt);
+                RadioSimActionPerformed(evt);
             }
         });
 
-        jRadioButton2.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        jRadioButton2.setText("Não");
+        Quitado.add(RadioNao);
+        RadioNao.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        RadioNao.setText("Não");
+        RadioNao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RadioNaoActionPerformed(evt);
+            }
+        });
 
         CampoIDCliente.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
 
@@ -189,9 +220,9 @@ public class EditCreditView extends javax.swing.JFrame {
                                 .addComponent(CampoValor))
                             .addComponent(jLabel10)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jRadioButton1)
+                                .addComponent(RadioSim)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jRadioButton2)))
+                                .addComponent(RadioNao)))
                         .addGap(30, 30, 30)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel8)
@@ -267,8 +298,8 @@ public class EditCreditView extends javax.swing.JFrame {
                                 .addComponent(jLabel10)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jRadioButton1)
-                                    .addComponent(jRadioButton2)))
+                                    .addComponent(RadioSim)
+                                    .addComponent(RadioNao)))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel9)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -290,12 +321,46 @@ public class EditCreditView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void ButtonRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonRegisterActionPerformed
-        // TODO add your handling code here:
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+
+            try {
+
+                boolean status = false;
+
+                CreditController c = new CreditController();
+                System.out.println("teste 2 " + controlador.getCredit().getId());
+
+                if(RadioSim.isSelected()){
+                    status = true;
+                }else{
+                    status = false;
+                }
+
+                c.salvar(
+                        formatter.format(CampoDataVenda.getDate()),
+                        formatter.format(CampoDataVencimento.getDate()),
+                        formatter.format(CampoDataPagamento.getDate()),
+                        Double.parseDouble(CampoValor.getText()),
+                        Double.parseDouble(CampoValorPago.getText()),
+                        status,
+                        CampoDescricao.getText(),
+                        CampoObservacao.getText(),
+                        Integer.parseInt(CampoIDCliente.getText()),
+                        controlador.getCredit().getId());
+
+//                editScreen = new EditDebitsView();
+
+            } catch (Exception ex) {
+                Logger.getLogger(RegisterDebitsView.class.getName()).log(Level.SEVERE, null, ex);
+            }
+//           editScreen.setVisible(true);
+//            dispose();
+
     }//GEN-LAST:event_ButtonRegisterActionPerformed
 
-    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton1ActionPerformed
+    private void RadioSimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RadioSimActionPerformed
+        RadioSim.setSelected(true);
+    }//GEN-LAST:event_RadioSimActionPerformed
 
     private void ButtonBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonBackActionPerformed
         CreditView creditScreen  = new CreditView();
@@ -303,6 +368,10 @@ public class EditCreditView extends javax.swing.JFrame {
         creditScreen.setVisible(true);
         dispose();
     }//GEN-LAST:event_ButtonBackActionPerformed
+
+    private void RadioNaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RadioNaoActionPerformed
+        RadioNao.setSelected(true);
+    }//GEN-LAST:event_RadioNaoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -362,6 +431,9 @@ public class EditCreditView extends javax.swing.JFrame {
     private javax.swing.JTextField CampoValor;
     private javax.swing.JTextField CampoValorPago;
     private javax.swing.JTable ClientTable;
+    private javax.swing.ButtonGroup Quitado;
+    private javax.swing.JRadioButton RadioNao;
+    private javax.swing.JRadioButton RadioSim;
     private javax.swing.JLabel Title;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -372,8 +444,6 @@ public class EditCreditView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

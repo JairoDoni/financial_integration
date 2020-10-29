@@ -228,11 +228,11 @@ public class RegisterDebitsView extends javax.swing.JFrame {
                                     .addComponent(CampoDataPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addComponent(jLabel4)
                     .addComponent(CampoObservacao))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(22, 22, 22))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(325, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -314,18 +314,27 @@ public class RegisterDebitsView extends javax.swing.JFrame {
     private void ButtonRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonRegisterActionPerformed
         
       SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+      
+
 
         try {
+            boolean status = false;
             DebitController d = new DebitController();
             System.out.println("teste 2 " + formatter.format(CampoDataCompra.getDate())+
                     formatter.format(CampoDataVencimento.getDate())+
                     formatter.format(CampoDataPagamento.getDate())+
-                    Double.parseDouble(CampoValor.getText())
+                    + Double.parseDouble(CampoValor.getText())
                     + Double.parseDouble(CampoValorPago.getText())
                     + Boolean.parseBoolean(RadioSim.getText())
                     + CampoDescricao.getText()
                     + CampoObservacao.getText()
                     + Integer.parseInt(CampoIDFornecedor.getText()));
+            
+            if(RadioSim.isSelected()){
+                status = true;
+            }else{
+                status = false;
+            }
 
             d.cadastrar(
                     formatter.format(CampoDataCompra.getDate()),
@@ -333,7 +342,7 @@ public class RegisterDebitsView extends javax.swing.JFrame {
                     formatter.format(CampoDataPagamento.getDate()),
                     Double.parseDouble(CampoValor.getText()),
                     Double.parseDouble(CampoValorPago.getText()),
-                    Boolean.parseBoolean(RadioSim.getText()),
+                    status,
                     CampoDescricao.getText(),
                     CampoObservacao.getText(),
                     Integer.parseInt(CampoIDFornecedor.getText()));
@@ -362,8 +371,7 @@ public class RegisterDebitsView extends javax.swing.JFrame {
     }//GEN-LAST:event_ButtonBackActionPerformed
 
     private void RadioSimStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_RadioSimStateChanged
-        RadioSim.setSelected(true);
-                
+        RadioSim.setSelected(false);
     }//GEN-LAST:event_RadioSimStateChanged
 
     private void RadioNaoStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_RadioNaoStateChanged
@@ -371,7 +379,7 @@ public class RegisterDebitsView extends javax.swing.JFrame {
     }//GEN-LAST:event_RadioNaoStateChanged
 
     private void RadioNaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RadioNaoActionPerformed
-          RadioNao.setSelected(false);
+          RadioNao.setSelected(true);
     }//GEN-LAST:event_RadioNaoActionPerformed
 
     /**

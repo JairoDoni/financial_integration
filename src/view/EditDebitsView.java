@@ -9,10 +9,14 @@ import controller.DebitController;
 import controller.ProviderController;
 import dao.DBException;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 import model.Debits;
+import model.Utils;
 
 /**
  *
@@ -23,28 +27,51 @@ public class EditDebitsView extends javax.swing.JFrame {
     /**
      * Creates new form RegisterProvider
      */
-    private ProviderController controlador;
+    private DebitController controlador;
+    
+    private ProviderController controladorProvider;
     
     public EditDebitsView() throws DBException {
         initComponents();
         
         this.setLocationRelativeTo(null);
 
-        this.controlador = new ProviderController();
+        this.controlador = new DebitController();
+        this.controladorProvider = new ProviderController();
+        
+//        CampoDescricao.setText(String.valueOf(controlador.getDebit().getDescription()));
 
         preencheTabela();
     }
 
     
     public void preencheTabela() {
-        for (int i = 0; i < this.controlador.getProviderList().size(); i++) {
+        for (int i = 0; i < this.controladorProvider.getProviderList().size(); i++) {
 
             ((DefaultTableModel) this.ProviderTable.getModel()).addRow(
                     new Object[]{
-                        this.controlador.getProviderList().get(i).getId(),
-                        this.controlador.getProviderList().get(i).getCompany_name(),
+                        this.controladorProvider.getProviderList().get(i).getId(),
+                        this.controladorProvider.getProviderList().get(i).getCompany_name(),
                   }
             );
+        }
+    }
+    
+    public void setController(DebitController debit){
+        this.controlador = debit;
+        CampoDescricao.setText(String.valueOf(controlador.getDebit().getDescription()));
+        CampoDataCompra.setCalendar(controlador.getDebit().getBuy_date());
+        CampoDataVencimento.setCalendar(controlador.getDebit().getDue_date());
+        CampoDataPagamento.setCalendar(controlador.getDebit().getPayment_date());
+        CampoValor.setText(String.valueOf(controlador.getDebit().getValue()));
+        CampoValorPago.setText(String.valueOf(controlador.getDebit().getValue_paid()));
+        CampoObservacao.setText(String.valueOf(controlador.getDebit().getNote()));
+        CampoIDFornecedor.setText(String.valueOf(controlador.getDebit().getFornecedores_id()));
+        
+        if(controlador.getDebit().isPaid_out() == true){
+            RadioSim.setSelected(true);
+        }else{
+            RadioNao.setSelected(true);
         }
     }
     /**
@@ -89,6 +116,11 @@ public class EditDebitsView extends javax.swing.JFrame {
         Title.setText("Editar Debito");
 
         CampoDescricao.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        CampoDescricao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CampoDescricaoActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         jLabel1.setText("Descrição");
@@ -294,33 +326,39 @@ public class EditDebitsView extends javax.swing.JFrame {
 
     private void ButtonRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonRegisterActionPerformed
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-
+        
         try {
+            
+            boolean status = false;
+            
             DebitController d = new DebitController();
-            System.out.println("teste 2 " + formatter.format(CampoDataCompra.getDate())+
-                    formatter.format(CampoDataVencimento.getDate())+
-                    formatter.format(CampoDataPagamento.getDate())+
-                    Double.parseDouble(CampoValor.getText())
-                    + Double.parseDouble(CampoValorPago.getText())
-                    + Boolean.parseBoolean(RadioSim.getText())
-                    + CampoDescricao.getText()
-                    + CampoObservacao.getText()
-                    + Integer.parseInt(CampoIDFornecedor.getText()));
+            System.out.println("teste 2 " + controlador.getDebit().getId());
+            
+            if(RadioSim.isSelected()){
+                status = true;
+            }else{
+                status = false;
+            }
 
-            d.cadastrar(
+            d.salvar(
                     formatter.format(CampoDataCompra.getDate()),
                     formatter.format(CampoDataVencimento.getDate()),
                     formatter.format(CampoDataPagamento.getDate()),
                     Double.parseDouble(CampoValor.getText()),
                     Double.parseDouble(CampoValorPago.getText()),
-                    Boolean.parseBoolean(RadioSim.getText()),
+                    status,
                     CampoDescricao.getText(),
                     CampoObservacao.getText(),
-                    Integer.parseInt(CampoIDFornecedor.getText()));
+                    Integer.parseInt(CampoIDFornecedor.getText()),
+                    controlador.getDebit().getId());
+        
+//                editScreen = new EditDebitsView();
             
         } catch (Exception ex) {
             Logger.getLogger(RegisterDebitsView.class.getName()).log(Level.SEVERE, null, ex);
         }
+//        editScreen.setVisible(true);
+//        dispose();
 
     }//GEN-LAST:event_ButtonRegisterActionPerformed
 
@@ -339,6 +377,10 @@ public class EditDebitsView extends javax.swing.JFrame {
         debitScreen.setVisible(true);
         dispose();
     }//GEN-LAST:event_ButtonBackActionPerformed
+
+    private void CampoDescricaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CampoDescricaoActionPerformed
+        
+    }//GEN-LAST:event_CampoDescricaoActionPerformed
 
     /**
      * @param args the command line arguments

@@ -22,6 +22,7 @@ public class CreditView extends javax.swing.JFrame {
      * Creates new form ProviderView
      */
     private CreditController controlador;
+    
     public CreditView() {
         initComponents();
             
@@ -170,7 +171,14 @@ public class CreditView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void ButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonDeleteActionPerformed
-        // TODO add your handling code here:
+        int posicao = CreditTable.getSelectedRow();
+        int idSelected = controlador.getCreditList().get(posicao).getId();
+        
+        
+        controlador.excluir(idSelected);
+        DefaultTableModel modelo = (DefaultTableModel) CreditTable.getModel();
+        modelo.setNumRows(0);
+        preencheTabela();
     }//GEN-LAST:event_ButtonDeleteActionPerformed
 
     private void ButtonBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonBackActionPerformed
@@ -181,15 +189,20 @@ public class CreditView extends javax.swing.JFrame {
     }//GEN-LAST:event_ButtonBackActionPerformed
 
     private void ButtonEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonEditActionPerformed
-        EditCreditView editScreen = null;
-        try {
-            editScreen = new EditCreditView();
-        } catch (DBException ex) {
-            Logger.getLogger(CreditView.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        int posicao = CreditTable.getSelectedRow();
+        int idSelected = controlador.getCreditList().get(posicao).getId();
         
-        editScreen.setVisible(true);
-        dispose();
+        
+        try {
+            EditCreditView editScreen = new EditCreditView();
+            this.controlador.buscarPorId(posicao);
+            editScreen.setController(this.controlador);
+            editScreen.setVisible(true);
+            dispose();
+        } catch (DBException ex) {
+            Logger.getLogger(DebitsView.class.getName()).log(Level.SEVERE, null, ex);
+        }        
+     
     }//GEN-LAST:event_ButtonEditActionPerformed
 
     private void ButtonNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonNewActionPerformed
