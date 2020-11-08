@@ -68,6 +68,19 @@ public class Debits {
         this.fornecedores_id = fornecedores_id;
     }
 
+    public Debits(int id, Calendar buy_date, Calendar due_date, Calendar payment_date, double value, double value_paid, String description, String note, int fornecedores_id) {
+        this.id = id;
+        this.buy_date = buy_date;
+        this.due_date = due_date;
+        this.payment_date = payment_date;
+        this.value = value;
+        this.value_paid = value_paid;
+        this.paid_out = paid_out;
+        this.description = description;
+        this.note = note;
+        this.fornecedores_id = fornecedores_id;
+    }
+
     public int getId() {
         return id;
     }

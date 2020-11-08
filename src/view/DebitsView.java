@@ -8,6 +8,7 @@ package view;
 import com.sun.javafx.fxml.BeanAdapter;
 import controller.DebitController;
 import dao.DBException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -15,6 +16,7 @@ import view.DebitsView;
 import javax.swing.table.DefaultTableModel;
 import model.Debits;
 import model.Utils;
+import uteis.GerenciadorIntegra;
 
 /**
  *
@@ -66,6 +68,7 @@ public class DebitsView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        ButtonEdit1 = new javax.swing.JToggleButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         DebitTable = new javax.swing.JTable();
         ButtonDelete = new javax.swing.JToggleButton();
@@ -73,6 +76,15 @@ public class DebitsView extends javax.swing.JFrame {
         ButtonEdit = new javax.swing.JToggleButton();
         Title = new javax.swing.JLabel();
         ButtonNew = new javax.swing.JToggleButton();
+        Exportar = new javax.swing.JToggleButton();
+
+        ButtonEdit1.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
+        ButtonEdit1.setText("Editar");
+        ButtonEdit1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonEdit1ActionPerformed(evt);
+            }
+        });
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -132,6 +144,14 @@ public class DebitsView extends javax.swing.JFrame {
             }
         });
 
+        Exportar.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
+        Exportar.setText("Exportar");
+        Exportar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ExportarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -144,6 +164,8 @@ public class DebitsView extends javax.swing.JFrame {
                 .addGap(45, 45, 45)
                 .addComponent(ButtonBack, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(Exportar, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(ButtonNew, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(ButtonEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -162,12 +184,13 @@ public class DebitsView extends javax.swing.JFrame {
                 .addComponent(Title)
                 .addGap(49, 49, 49)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ButtonDelete)
                     .addComponent(ButtonEdit)
                     .addComponent(ButtonBack)
-                    .addComponent(ButtonNew))
+                    .addComponent(ButtonNew)
+                    .addComponent(Exportar))
                 .addGap(19, 19, 19))
         );
 
@@ -231,6 +254,36 @@ public class DebitsView extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_ButtonNewActionPerformed
 
+    private void ButtonEdit1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonEdit1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ButtonEdit1ActionPerformed
+
+    private void ExportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExportarActionPerformed
+       try {
+            ArrayList<Debits> lista = new ArrayList<Debits>();
+            
+            for (int i = 0 ; i < this.controlador.getDebitList().size(); i++ ){
+                lista.add(new Debits(
+                        this.controlador.getDebitList().get(i).getId(),
+                        this.controlador.getDebitList().get(i).getBuy_date(),
+                        this.controlador.getDebitList().get(i).getDue_date(),
+                        this.controlador.getDebitList().get(i).getPayment_date(),
+                        this.controlador.getDebitList().get(i).getValue(),
+                        this.controlador.getDebitList().get(i).getValue_paid(),
+                        this.controlador.getDebitList().get(i).getDescription(),
+                        this.controlador.getDebitList().get(i).getNote(),
+                        this.controlador.getDebitList().get(i).getFornecedores_id())
+                );
+                
+            }
+            
+            GerenciadorIntegra.produzDadosIntegracao(2, lista);
+            JOptionPane.showMessageDialog(rootPane, "Dados exportados com sucesso");
+        } catch (Exception e) {
+            Logger.getLogger(Debits.class.getName()).log(Level.SEVERE, null, e);
+        }
+    }//GEN-LAST:event_ExportarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -275,8 +328,10 @@ public class DebitsView extends javax.swing.JFrame {
     private javax.swing.JToggleButton ButtonBack;
     private javax.swing.JToggleButton ButtonDelete;
     private javax.swing.JToggleButton ButtonEdit;
+    private javax.swing.JToggleButton ButtonEdit1;
     private javax.swing.JToggleButton ButtonNew;
     private javax.swing.JTable DebitTable;
+    private javax.swing.JToggleButton Exportar;
     private javax.swing.JLabel Title;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables

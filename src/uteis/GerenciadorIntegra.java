@@ -32,18 +32,18 @@ public class GerenciadorIntegra {
     /*Exportação
     *@Params flag: 1-Credit  2-Debit
     */
-    public static void produzDadosIntegracao(int flag, int operacao, ArrayList lista) throws IOException {
+    public static void produzDadosIntegracao(int flag, ArrayList lista) throws IOException {
 
         String arquivo;
 
         switch (flag) {
-            case 0: {
-                exportCredit(operacao, lista);
+            case 1: {
+                exportCredit(lista);
                 break;
             }
 
-            case 1: {
-                exportDebit(operacao, lista);
+            case 2: {
+                exportDebit(lista);
                 break;
             }
         }
@@ -67,7 +67,7 @@ public class GerenciadorIntegra {
         }
     }
     //........
-    private static void exportCredit(int operacao, ArrayList lista) throws IOException {
+    private static void exportCredit(ArrayList lista) throws IOException {
 
         File arquivo = new File(pathExport + "creditos.csv");
 
@@ -76,22 +76,22 @@ public class GerenciadorIntegra {
         }
 
         arquivo = null;
-
+        
         for (Object linha : lista) {
 
             Credit cr = (Credit) linha;
-
+            
             Date data = new Date();
             SimpleDateFormat formatador = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
             String dataFormatada = formatador.format(data);
 
-            String conteudo = operacao + ";" + cr.getId() + ";" + Utils.formatarData(cr.getSale_date()) + ";" + Utils.formatarData(cr.getDue_date()) + ";" + Utils.formatarData(cr.getPayment_date()) + ";" + cr.getValue() + ";" + cr.getValue_paid() + ";" + cr.getDescription() + ";" + cr.getNote() + ";" + cr.getClient_id() + ";" + dataFormatada;
+            String conteudo = cr.getId() + ";" + Utils.formatarData(cr.getSale_date()) + ";" + Utils.formatarData(cr.getDue_date()) + ";" + Utils.formatarData(cr.getPayment_date()) + ";" + cr.getValue() + ";" + cr.getValue_paid() + ";" + cr.getDescription() + ";" + cr.getNote() + ";" + cr.getClient_id() + ";" + dataFormatada;
             ManipuladorArquivo.escritor(pathExport + "compras.csv", conteudo);
 
         }
     }
 
-    private static void exportDebit(int operacao, ArrayList lista) throws IOException {
+    private static void exportDebit(ArrayList lista) throws IOException {
 
         File arquivo = new File(pathExport + "debitos.csv");
 
@@ -109,7 +109,7 @@ public class GerenciadorIntegra {
             SimpleDateFormat formatador = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
             String dataFormatada = formatador.format(data);
 
-            String conteudo = operacao + ";" + cr.getId() + ";" + Utils.formatarData(cr.getBuy_date()) + ";" + Utils.formatarData(cr.getDue_date()) + ";" + Utils.formatarData(cr.getPayment_date()) + ";" + cr.getValue() + ";" + cr.getValue_paid() + ";" + cr.getDescription() + ";" + cr.getNote() + ";" + cr.getFornecedores_id() + ";" + dataFormatada;
+            String conteudo = cr.getId() + ";" + Utils.formatarData(cr.getBuy_date()) + ";" + Utils.formatarData(cr.getDue_date()) + ";" + Utils.formatarData(cr.getPayment_date()) + ";" + cr.getValue() + ";" + cr.getValue_paid() + ";" + cr.getDescription() + ";" + cr.getNote() + ";" + cr.getFornecedores_id() + ";" + dataFormatada;
             ManipuladorArquivo.escritor(pathExport + "debitos.csv", conteudo);
 
         }

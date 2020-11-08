@@ -69,6 +69,19 @@ public class Credit {
         this.client_id = client_id;
     }
 
+    public Credit(int id, Calendar sale_date, Calendar due_date, Calendar payment_date, double value, double value_paid, String description, String note, int client_id) {
+        this.id = id;
+        this.sale_date = sale_date;
+        this.due_date = due_date;
+        this.payment_date = payment_date;
+        this.value = value;
+        this.value_paid = value_paid;
+        this.paid_out = paid_out;
+        this.description = description;
+        this.note = note;
+        this.client_id = client_id;
+    }
+
     public int getId() {
         return id;
     }

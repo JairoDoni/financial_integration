@@ -9,6 +9,7 @@ import dao.DBException;
 import dao.ClientDAO;
 import model.Client;
 import java.util.ArrayList;
+import uteis.GerenciadorIntegra;
 
 
 /**
@@ -43,6 +44,9 @@ public class ClientController {
     
     public ArrayList<Client> getClientList() {
         return this.clientList;
+    }
+    public void importarDados() throws Exception {
+        GerenciadorIntegra.consomeDadosIntegracao(2);
     }
 }
 

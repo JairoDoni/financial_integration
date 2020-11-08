@@ -9,6 +9,7 @@ import dao.DBException;
 import dao.ProviderDAO;
 import model.Provider;
 import java.util.ArrayList;
+import uteis.GerenciadorIntegra;
 
 /**
  *
@@ -33,5 +34,9 @@ public class ProviderController {
 
     public ArrayList<Provider> getProviderList() {
         return this.providerList;
+    }
+    
+    public void importarDados() throws Exception {
+        GerenciadorIntegra.consomeDadosIntegracao(1);
     }
 }
