@@ -202,16 +202,26 @@ public class DebitsView extends javax.swing.JFrame {
     private void ButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonDeleteActionPerformed
         int posicao = DebitTable.getSelectedRow();
         int idSelected = controlador.getDebitList().get(posicao).getId();
+        int resposta = JOptionPane.showConfirmDialog(null, "Você realmente deseja deletar este item?", "Confirmation", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
         
+
         
-        try {
-            controlador.excluir(idSelected);
-            DefaultTableModel modelo = (DefaultTableModel) DebitTable.getModel();
-            modelo.setNumRows(0);
-            preencheTabela();
-        } catch (DBException ex) {
-            Logger.getLogger(DebitsView.class.getName()).log(Level.SEVERE, null, ex);
+        if(resposta == JOptionPane.YES_OPTION){
+            try {
+
+                controlador.excluir(idSelected);
+                DefaultTableModel modelo = (DefaultTableModel) DebitTable.getModel();
+                modelo.setNumRows(0);
+                preencheTabela();
+                JOptionPane.showMessageDialog(rootPane, "Exclusão efetuada."); 
+
+
+            } catch (DBException ex) {
+                JOptionPane.showMessageDialog(null, "Não foi possivel excluir esse item.", "Delete Error", JOptionPane.ERROR_MESSAGE);
+                Logger.getLogger(DebitsView.class.getName()).log(Level.SEVERE, null, ex);
+            }            
         }
+
     }//GEN-LAST:event_ButtonDeleteActionPerformed
 
     private void ButtonBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonBackActionPerformed
@@ -280,6 +290,7 @@ public class DebitsView extends javax.swing.JFrame {
             GerenciadorIntegra.produzDadosIntegracao(2, lista);
             JOptionPane.showMessageDialog(rootPane, "Dados exportados com sucesso");
         } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao exportar os dados.", "Export Error", JOptionPane.ERROR_MESSAGE);
             Logger.getLogger(Debits.class.getName()).log(Level.SEVERE, null, e);
         }
     }//GEN-LAST:event_ExportarActionPerformed

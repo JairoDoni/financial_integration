@@ -14,6 +14,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Debits;
 import model.Utils;
@@ -352,13 +353,16 @@ public class EditDebitsView extends javax.swing.JFrame {
                     Integer.parseInt(CampoIDFornecedor.getText()),
                     controlador.getDebit().getId());
         
-//                editScreen = new EditDebitsView();
+            JOptionPane.showMessageDialog(rootPane, "Ediçao efetuada com sucesso!");      
+            DebitsView debitScreen = new DebitsView();
+            debitScreen.setVisible(true);
+            dispose();
+
             
         } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possivel efetuar a edição dos dados.", "Edit Error", JOptionPane.ERROR_MESSAGE);
             Logger.getLogger(RegisterDebitsView.class.getName()).log(Level.SEVERE, null, ex);
         }
-//        editScreen.setVisible(true);
-//        dispose();
 
     }//GEN-LAST:event_ButtonRegisterActionPerformed
 

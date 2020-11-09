@@ -347,11 +347,17 @@ public class RegisterDebitsView extends javax.swing.JFrame {
                     CampoObservacao.getText(),
                     Integer.parseInt(CampoIDFornecedor.getText()));
             
+            JOptionPane.showMessageDialog(rootPane, "Cadastrado efetuado com sucesso!");      
+            DebitsView debitScreen = new DebitsView();
+            debitScreen.setVisible(true);
+            dispose();
+            
         } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possivel efetuar o cadastro.", "Register Error", JOptionPane.ERROR_MESSAGE);
             Logger.getLogger(RegisterDebitsView.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-       
+    
     }//GEN-LAST:event_ButtonRegisterActionPerformed
 
     private void RadioSimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RadioSimActionPerformed

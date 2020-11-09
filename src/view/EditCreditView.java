@@ -12,6 +12,7 @@ import dao.DBException;
 import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Utils;
 
@@ -349,12 +350,15 @@ public class EditCreditView extends javax.swing.JFrame {
                         controlador.getCredit().getId());
 
 //                editScreen = new EditDebitsView();
+            JOptionPane.showMessageDialog(rootPane, "Ediçao efetuada com sucesso!"); 
+            CreditView creditScreen = new CreditView();
+            creditScreen.setVisible(true);
+            dispose();
 
             } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, "Não foi possivel efetuar a edição dos dados.", "Edit Error", JOptionPane.ERROR_MESSAGE);
                 Logger.getLogger(RegisterDebitsView.class.getName()).log(Level.SEVERE, null, ex);
             }
-//           editScreen.setVisible(true);
-//            dispose();
 
     }//GEN-LAST:event_ButtonRegisterActionPerformed
 

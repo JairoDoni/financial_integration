@@ -189,12 +189,22 @@ public class CreditView extends javax.swing.JFrame {
     private void ButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonDeleteActionPerformed
         int posicao = CreditTable.getSelectedRow();
         int idSelected = controlador.getCreditList().get(posicao).getId();
+        int resposta = JOptionPane.showConfirmDialog(null, "Você realmente deseja deletar este item?", "Confirmation", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
         
-        
-        controlador.excluir(idSelected);
-        DefaultTableModel modelo = (DefaultTableModel) CreditTable.getModel();
-        modelo.setNumRows(0);
-        preencheTabela();
+        if(resposta == JOptionPane.YES_OPTION){
+            try {
+                
+                controlador.excluir(idSelected);
+                DefaultTableModel modelo = (DefaultTableModel) CreditTable.getModel();
+                modelo.setNumRows(0);
+                preencheTabela();
+                JOptionPane.showMessageDialog(rootPane, "Exclusão efetuada."); 
+                
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Não foi possivel excluir esse item.", "Delete Error", JOptionPane.ERROR_MESSAGE);
+            }
+            
+        }
     }//GEN-LAST:event_ButtonDeleteActionPerformed
 
     private void ButtonBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonBackActionPerformed
@@ -255,6 +265,7 @@ public class CreditView extends javax.swing.JFrame {
             GerenciadorIntegra.produzDadosIntegracao(1, lista);
             JOptionPane.showMessageDialog(rootPane, "Dados exportados com sucesso");
         } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao exportar os dados.", "Export Error", JOptionPane.ERROR_MESSAGE);
             Logger.getLogger(Credit.class.getName()).log(Level.SEVERE, null, e);
         }
     }//GEN-LAST:event_ExportarActionPerformed
