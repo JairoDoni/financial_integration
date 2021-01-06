@@ -86,7 +86,7 @@ public class GerenciadorIntegra {
             String dataFormatada = formatador.format(data);
 
             String conteudo = cr.getId() + ";" + Utils.formatarData(cr.getSale_date()) + ";" + Utils.formatarData(cr.getDue_date()) + ";" + Utils.formatarData(cr.getPayment_date()) + ";" + cr.getValue() + ";" + cr.getValue_paid() + ";" + cr.getDescription() + ";" + cr.getNote() + ";" + cr.getClient_id() + ";" + dataFormatada;
-            ManipuladorArquivo.escritor(pathExport + "compras.csv", conteudo);
+            ManipuladorArquivo.escritor(pathExport + "creditos.csv", conteudo);
 
         }
     }
